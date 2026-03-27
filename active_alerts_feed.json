@@ -1,0 +1,11 @@
+[
+    {
+        "alert_uuid": "ALERT-20260315002728",
+        "timestamp": "2026-03-15T00:27:28.922367",
+        "level": "HIGH",
+        "message": "HIGH RISK OF SEVERE ACCIDENT. Increased caution advised due to Snow.",
+        "location": "Chicago, IL [GPS: 41.8781, -87.6298]",
+        "ai_confidence": 42.8,
+        "recommended_action": "Enable digital warning signs and monitor cameras at this junction."
+    }
+]

@@ -1,0 +1,402 @@
+[
+    {
+        "hotspot_id": 2,
+        "latitude": 34.05663,
+        "longitude": -118.05197,
+        "total_severe_accidents": 10929,
+        "location": "Los Angeles, CA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 40,
+        "latitude": 40.86025,
+        "longitude": -73.90972,
+        "total_severe_accidents": 5192,
+        "location": "Bronx, NY",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 3,
+        "latitude": 39.06185,
+        "longitude": -77.2068,
+        "total_severe_accidents": 4878,
+        "location": "Baltimore, MD",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 6,
+        "latitude": 33.77711,
+        "longitude": -84.37424,
+        "total_severe_accidents": 4749,
+        "location": "Atlanta, GA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 16,
+        "latitude": 42.05352,
+        "longitude": -87.92088,
+        "total_severe_accidents": 4732,
+        "location": "Chicago, IL",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 44,
+        "latitude": 37.69764,
+        "longitude": -122.06819,
+        "total_severe_accidents": 4505,
+        "location": "Oakland, CA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 20,
+        "latitude": 32.80219,
+        "longitude": -96.90611,
+        "total_severe_accidents": 4149,
+        "location": "Dallas, TX",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 4,
+        "latitude": 26.11973,
+        "longitude": -80.27431,
+        "total_severe_accidents": 3316,
+        "location": "Miami, FL",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 10,
+        "latitude": 42.16641,
+        "longitude": -82.93078,
+        "total_severe_accidents": 2773,
+        "location": "Detroit, MI",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 7,
+        "latitude": 29.90169,
+        "longitude": -95.2647,
+        "total_severe_accidents": 2664,
+        "location": "Houston, TX",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 24,
+        "latitude": 28.1369,
+        "longitude": -81.92682,
+        "total_severe_accidents": 2566,
+        "location": "Tampa, FL",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 27,
+        "latitude": 40.10964,
+        "longitude": -75.3918,
+        "total_severe_accidents": 2444,
+        "location": "Philadelphia, PA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 11,
+        "latitude": 39.67487,
+        "longitude": -105.05177,
+        "total_severe_accidents": 2226,
+        "location": "Denver, CO",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 14,
+        "latitude": 44.96981,
+        "longitude": -93.18026,
+        "total_severe_accidents": 2091,
+        "location": "Minneapolis, MN",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 38,
+        "latitude": 33.60056,
+        "longitude": -80.79631,
+        "total_severe_accidents": 1989,
+        "location": "Columbia, SC",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 8,
+        "latitude": 47.56751,
+        "longitude": -122.28405,
+        "total_severe_accidents": 1982,
+        "location": "Seattle, WA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 41,
+        "latitude": 37.17967,
+        "longitude": -76.85382,
+        "total_severe_accidents": 1881,
+        "location": "Richmond, VA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 33,
+        "latitude": 33.03518,
+        "longitude": -117.17925,
+        "total_severe_accidents": 1835,
+        "location": "San Diego, CA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 9,
+        "latitude": 42.07568,
+        "longitude": -73.26979,
+        "total_severe_accidents": 1678,
+        "location": "Albany, CT",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 36,
+        "latitude": 36.05065,
+        "longitude": -78.89014,
+        "total_severe_accidents": 1635,
+        "location": "Raleigh, NC",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 18,
+        "latitude": 30.27788,
+        "longitude": -81.93528,
+        "total_severe_accidents": 1555,
+        "location": "Jacksonville, FL",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 1,
+        "latitude": 38.74532,
+        "longitude": -90.26013,
+        "total_severe_accidents": 1541,
+        "location": "Saint Louis, MO",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 46,
+        "latitude": 35.24552,
+        "longitude": -82.66156,
+        "total_severe_accidents": 1497,
+        "location": "Greenville, SC",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 19,
+        "latitude": 33.54536,
+        "longitude": -111.93852,
+        "total_severe_accidents": 1450,
+        "location": "Phoenix, AZ",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 30,
+        "latitude": 29.94129,
+        "longitude": -98.10496,
+        "total_severe_accidents": 1404,
+        "location": "Austin, TX",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 13,
+        "latitude": 35.54596,
+        "longitude": -80.91009,
+        "total_severe_accidents": 1385,
+        "location": "Charlotte, NC",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 37,
+        "latitude": 30.62177,
+        "longitude": -90.72251,
+        "total_severe_accidents": 1333,
+        "location": "Baton Rouge, LA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 29,
+        "latitude": 38.53525,
+        "longitude": -85.24085,
+        "total_severe_accidents": 1327,
+        "location": "Louisville, KY",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 15,
+        "latitude": 39.8243,
+        "longitude": -83.35427,
+        "total_severe_accidents": 1301,
+        "location": "Columbus, OH",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 26,
+        "latitude": 36.10853,
+        "longitude": -86.70066,
+        "total_severe_accidents": 1245,
+        "location": "Nashville, TN",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 23,
+        "latitude": 33.42813,
+        "longitude": -86.71389,
+        "total_severe_accidents": 1194,
+        "location": "Birmingham, AL",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 12,
+        "latitude": 38.51622,
+        "longitude": -121.61447,
+        "total_severe_accidents": 1177,
+        "location": "Sacramento, CA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 28,
+        "latitude": 42.60644,
+        "longitude": -71.14191,
+        "total_severe_accidents": 1167,
+        "location": "Boston, MA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 5,
+        "latitude": 40.44763,
+        "longitude": -111.91034,
+        "total_severe_accidents": 1153,
+        "location": "Salt Lake City, UT",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 25,
+        "latitude": 40.56711,
+        "longitude": -79.77995,
+        "total_severe_accidents": 1088,
+        "location": "Pittsburgh, PA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 32,
+        "latitude": 38.90972,
+        "longitude": -94.52992,
+        "total_severe_accidents": 1059,
+        "location": "Kansas City, MO",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 49,
+        "latitude": 39.85221,
+        "longitude": -86.17812,
+        "total_severe_accidents": 1056,
+        "location": "Indianapolis, IN",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 35,
+        "latitude": 42.89299,
+        "longitude": -77.51283,
+        "total_severe_accidents": 963,
+        "location": "Buffalo, NY",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 50,
+        "latitude": 42.82347,
+        "longitude": -84.74105,
+        "total_severe_accidents": 941,
+        "location": "Flint, MI",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 43,
+        "latitude": 45.30502,
+        "longitude": -122.62941,
+        "total_severe_accidents": 911,
+        "location": "Portland, OR",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 42,
+        "latitude": 41.80991,
+        "longitude": -71.53774,
+        "total_severe_accidents": 898,
+        "location": "Providence, RI",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 45,
+        "latitude": 35.02606,
+        "longitude": -90.54699,
+        "total_severe_accidents": 621,
+        "location": "Memphis, TN",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 22,
+        "latitude": 30.71222,
+        "longitude": -87.53486,
+        "total_severe_accidents": 542,
+        "location": "Mobile, AL",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 39,
+        "latitude": 41.73029,
+        "longitude": -92.82148,
+        "total_severe_accidents": 505,
+        "location": "Des Moines, IA",
+        "risk_level": "CRITICAL"
+    },
+    {
+        "hotspot_id": 17,
+        "latitude": 35.61315,
+        "longitude": -97.26106,
+        "total_severe_accidents": 484,
+        "location": "Oklahoma City, OK",
+        "risk_level": "HIGH"
+    },
+    {
+        "hotspot_id": 21,
+        "latitude": 41.42841,
+        "longitude": -96.1141,
+        "total_severe_accidents": 441,
+        "location": "Omaha, NE",
+        "risk_level": "HIGH"
+    },
+    {
+        "hotspot_id": 48,
+        "latitude": 38.92071,
+        "longitude": -120.21734,
+        "total_severe_accidents": 390,
+        "location": "Reno, NV",
+        "risk_level": "HIGH"
+    },
+    {
+        "hotspot_id": 31,
+        "latitude": 33.50385,
+        "longitude": -106.35484,
+        "total_severe_accidents": 369,
+        "location": "Albuquerque, NM",
+        "risk_level": "HIGH"
+    },
+    {
+        "hotspot_id": 47,
+        "latitude": 46.17161,
+        "longitude": -117.49057,
+        "total_severe_accidents": 245,
+        "location": "Spokane, OR",
+        "risk_level": "HIGH"
+    },
+    {
+        "hotspot_id": 34,
+        "latitude": 41.84246,
+        "longitude": -122.7177,
+        "total_severe_accidents": 128,
+        "location": "Redding, OR",
+        "risk_level": "HIGH"
+    }
+]
