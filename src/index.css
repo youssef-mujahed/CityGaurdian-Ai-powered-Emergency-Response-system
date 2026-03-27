@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #000;
+  }
+}
+
+/* تخصيص السكرول بار بالكامل وإجبار المتصفح على الألوان الجديدة */
+
+/* 1. حجم السكرول بار (العرض) */
+::-webkit-scrollbar {
+  width: 5px !important; /* خليه رفيع جداً عشان يبقى شيك */
+  height: 5px !important;
+}
+
+/* 2. المجرى (الخلفية) - هنخليها شفافة تماماً */
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0) !important;
+  margin: 10px !important; /* عشان ميبقاش لازق في الحواف */
+}
+
+/* 3. الجزء المتحرك (الـ Thumb) - اللي هنخليه أحمر نيون */
+::-webkit-scrollbar-thumb {
+  background: rgba(220, 38, 38, 0.4) !important; /* أحمر شفاف */
+  border-radius: 50px !important; /* خليه دائري من الحواف */
+  box-shadow: inset 0 0 5px rgba(220, 38, 38, 0.2) !important;
+}
+
+/* 4. عند الوقوف عليه بالماوس (Hover) - نخليه ينور */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 38, 38, 1) !important; /* أحمر صريح */
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.6) !important; /* تأثير توهج نيون */
+}
+
+/* لمتصفح فايرفوكس */
+* {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(220, 38, 38, 0.5) transparent !important;
+}
