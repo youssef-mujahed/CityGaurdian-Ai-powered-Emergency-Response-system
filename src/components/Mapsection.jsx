@@ -49,16 +49,16 @@ const Mapsection = ({ activeIncident }) => {
     },
     {
       id: "#INC39",
-      type: "Illegal Parking",
+      type: "Car Accident",
       top: "50%",
       left: "22%",
-      color: "text-yellow-500"
+      color: "text-red-600"
     }
   ];
 
   return (
     <div className="px-10 mt-2 relative">
-      <div className="relative w-full h-[380px] rounded-[3rem] border border-white/10 overflow-hidden shadow-2xl bg-black">
+      <div className="relative w-full h-[360px] rounded-[3rem] border border-white/10 overflow-hidden shadow-2xl bg-black">
         {/* 🗺️ صورة الخريطة الحقيقية (خلفية مؤقتة) */}
         <Link to={"/map"}>
           <div

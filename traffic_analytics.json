@@ -1,0 +1,24 @@
+{
+    "total_records_analyzed": 500000,
+    "patterns": {
+        "time_of_day_risk": {
+            "Day": 68243,
+            "Night": 29142,
+            "insight": "Daytime sees more total severe accidents, likely due to much higher traffic volume."
+        },
+        "hazardous_weather": {
+            "Fair": 19783,
+            "Clear": 17820,
+            "Mostly Cloudy": 13730,
+            "Partly Cloudy": 9249,
+            "Overcast": 8754,
+            "insight": "'Fair' represents the most frequent weather condition during severe accidents."
+        },
+        "infrastructure_involvement": {
+            "at_junction": 10.3,
+            "at_crossing": 4.1,
+            "at_traffic_signal": 7.3
+        }
+    },
+    "recommendations": []
+}

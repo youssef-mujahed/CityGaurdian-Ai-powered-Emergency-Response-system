@@ -71,7 +71,7 @@ const Statscard = () => {
       {cards.map((card, index) => (
         <div
           key={index}
-          className={`group relative flex flex-col justify-between p-5 h-36 
+          className={`group relative flex flex-col justify-between p-5 h-34 
           ${card.defaultBg} border ${card.defaultBorder} rounded-[1.8rem] 
           backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]
           hover:scale-[1.05] hover:-translate-y-2 cursor-pointer

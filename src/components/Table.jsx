@@ -20,8 +20,6 @@ const Table = ({ onSelectIncident, activeId }) => {
         return <FireIcon className="w-5 h-5" />;
       case "Medical Help":
         return <LifebuoyIcon className="w-5 h-5" />;
-      case "Illegal Parking":
-        return <NoSymbolIcon className="w-5 h-5" />;
       default:
         return <ExclamationCircleIcon className="w-5 h-5" />;
     }
@@ -54,7 +52,7 @@ const Table = ({ onSelectIncident, activeId }) => {
     },
     {
       id: "#INC39",
-      type: "Illegal Parking",
+      type: "Car Accident",
       location: "Zamalek",
       source: "AI Sensor 09",
       status: "Pending",

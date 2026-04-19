@@ -11,7 +11,7 @@ import {
 
 const Sidebar = () => {
   const menuItems = [
-    { name: "Dashboard", icon: Squares2X2Icon, path: "/" },
+    { name: "Dashboard", icon: Squares2X2Icon, path: "/home" },
     { name: "Live Traffic Map", icon: GlobeAltIcon, path: "/map" },
     {
       name: "Emergency Incidents",
@@ -21,7 +21,7 @@ const Sidebar = () => {
     {
       name: "AI Detection Logs",
       icon: VideoCameraIcon,
-      path: "/Logs"
+      path: "/logs"
     },
     {
       name: "System Settings",
