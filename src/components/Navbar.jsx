@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import api from "../api/axios"; // استيراد الـ axios اللي عملناه
 
 import {
   BellIcon,
@@ -11,10 +12,42 @@ import {
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [userName, setUserName] = useState("Loading..."); // حالة لحفظ الاسم
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-  // إغلاق القائمة عند الضغط في أي مكان خارجها
+  // 1. جلب بيانات المستخدم عند تحميل الناف بار
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        // نكلم لينك الـ Me اللي مجاهد بعته
+        const response = await api.get("/api/v1/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}` // نبعت التوكن عشان الباك إيند يعرفنا
+          }
+        });
+
+        const fullName = response.data.full_name; // أو حسب الـ Key اللي مجاهد مرجعه
+
+        // تقطيع الاسم لأول اسمين فقط
+        if (fullName) {
+          const nameParts = fullName.split(" ");
+          const shortName = nameParts.slice(0, 2).join(" ");
+          setUserName(shortName);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserName("Guest"); // لو حصل مشكلة يظهر كضيف
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  // إغلاق القائمة عند الضغط خارجها
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -26,12 +59,11 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    // sessionStorage.removeItem("user_authenticated"); // لو مفعل نظام الحماية
-    navigate("/"); // العودة لصفحة الساين إن
+    localStorage.removeItem("token"); // مسح التوكن عند الخروج
+    navigate("/");
   };
 
   return (
-    // الـ z-[999] هنا هي اللي بتخلي الناف بار كلو "راكب" فوق الكروت اللي تحته
     <div className="pt-5 px-10 w-full flex justify-center relative z-[999]">
       <header className="w-full max-w-[1750px] bg-[#0a0a0a]/30 backdrop-blur-xl border border-white/5 rounded-sm p-4 shadow-2xl relative">
         <div className="flex items-center justify-between px-2">
@@ -43,7 +75,6 @@ const Navbar = () => {
             <div className="flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img src={logo} alt="Logo" className="w-14 h-14 object-contain" />
             </div>
-
             <div className="flex flex-col border-r border-white/10 pr-8">
               <h1 className="text-white text-[28px] font-bold tracking-[0.1em] uppercase leading-none transition-colors group-hover:text-red-500">
                 Emergency Response AI
@@ -65,8 +96,9 @@ const Navbar = () => {
           {/* الجزء اليمين: التنبيهات والأدمن */}
           <div className="flex items-center gap-4 pl-8 border-l border-white/10">
             <div className="text-right leading-tight">
-              <p className="text-white text-sm font-bold tracking-wider">
-                Admin
+              {/* 2. هنا بنعرض الاسم اللي جبناه */}
+              <p className="text-white text-sm font-bold tracking-wider capitalize">
+                {userName}
               </p>
               <p className="text-gray-500 text-[10px] uppercase font-black tracking-tighter opacity-70">
                 Traffic Authority
@@ -83,7 +115,6 @@ const Navbar = () => {
                 <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#1a1a1a]"></div>
               </div>
 
-              {/* Dropdown Menu */}
               {showDropdown && (
                 <div className="absolute right-0 mt-4 w-52 bg-[#0c0c0c] border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] py-2 z-[1000] animate-in fade-in zoom-in duration-200 ring-1 ring-white/5">
                   <div className="px-4 py-3 border-b border-white/5 mb-1 bg-white/[0.02]">
@@ -91,7 +122,7 @@ const Navbar = () => {
                       Session Control
                     </p>
                     <p className="text-white text-[11px] font-bold mt-1">
-                      Admin User
+                      {userName}
                     </p>
                   </div>
 
@@ -105,11 +136,6 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-
-            {/* زرار الإعدادات */}
-            <button className="cursor-pointer group">
-              <Cog6ToothIcon className="w-7 h-7 text-gray-500 group-hover:text-white group-hover:rotate-90 transition-all duration-300" />
-            </button>
           </div>
         </div>
       </header>

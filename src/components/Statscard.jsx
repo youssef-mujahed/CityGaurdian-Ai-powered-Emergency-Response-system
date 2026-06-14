@@ -6,11 +6,19 @@ import {
   CpuChipIcon
 } from "@heroicons/react/24/outline";
 
-const Statscard = () => {
+const Statscard = ({ incidents = [] }) => {
+  // حساب البيانات الحقيقية من المصفوفة
+  const activeCount = incidents.filter(
+    (inc) => inc.status !== "resolved"
+  ).length;
+  const highSeverity = incidents.filter(
+    (inc) => inc.ai_confidence > 0.8
+  ).length; // مثال للحوادث المؤكدة جداً
+
   const cards = [
     {
       title: "Active Emergencies",
-      value: "12",
+      value: activeCount.toString(),
       description: "Ongoing Incidents",
       icon: ExclamationTriangleIcon,
       defaultBg: "bg-red-950/20",
@@ -23,9 +31,9 @@ const Statscard = () => {
         "group-hover:text-red-300 group-hover:drop-shadow-[0_0_10px_#dc2626]"
     },
     {
-      title: "Traffic Status",
-      value: "MEDIUM",
-      description: "Congestion",
+      title: "High Confidence",
+      value: highSeverity.toString(),
+      description: "AI Confirmed",
       icon: SignalIcon,
       defaultBg: "bg-yellow-950/20",
       defaultBorder: "border-yellow-900/30",
@@ -37,9 +45,9 @@ const Statscard = () => {
         "group-hover:text-yellow-300 group-hover:drop-shadow-[0_0_10px_#eab308]"
     },
     {
-      title: "Available Ambulances",
-      value: "8 ACTIVE",
-      description: "2 Responding",
+      title: "Total Reports",
+      value: incidents.length.toString(),
+      description: "Last 24 Hours",
       icon: TruckIcon,
       defaultBg: "bg-green-950/20",
       defaultBorder: "border-green-900/30",
@@ -51,9 +59,9 @@ const Statscard = () => {
         "group-hover:text-green-300 group-hover:drop-shadow-[0_0_10px_#22c55e]"
     },
     {
-      title: "AI Detection Status",
-      value: "YOLO",
-      description: "Model: Running",
+      title: "AI Detection",
+      value: "ONLINE",
+      description: "Model: YOLOv8",
       icon: CpuChipIcon,
       defaultBg: "bg-purple-950/20",
       defaultBorder: "border-purple-900/30",
@@ -71,12 +79,13 @@ const Statscard = () => {
       {cards.map((card, index) => (
         <div
           key={index}
-          className={`group relative flex flex-col justify-between p-5 h-34 
+          className={`group relative flex flex-col justify-between p-5 h-36 
           ${card.defaultBg} border ${card.defaultBorder} rounded-[1.8rem] 
           backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]
           hover:scale-[1.05] hover:-translate-y-2 cursor-pointer
           ${card.activeBg} ${card.activeBorder} ${card.glow} overflow-hidden`}
         >
+          {/* Header Info */}
           <div className="flex items-center gap-3 relative z-10">
             <div
               className={`p-2 rounded-xl bg-black/40 border border-white/10 ${card.activeBorder} transition-all duration-700`}
@@ -92,9 +101,10 @@ const Statscard = () => {
             </p>
           </div>
 
+          {/* Value and Description */}
           <div className="flex flex-col gap-0.5 relative z-10">
             <h2
-              className={`text-2xl font-black tracking-tighter text-white transition-all duration-700 ${card.textGlow} group-hover:scale-105 origin-left`}
+              className={`text-3xl font-black tracking-tighter text-white transition-all duration-700 ${card.textGlow} group-hover:scale-105 origin-left`}
             >
               {card.value}
             </h2>
@@ -105,7 +115,8 @@ const Statscard = () => {
             </p>
           </div>
 
-          <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+          {/* ⚡ تأثير لمعة الضوء اللي بتتحرك (The Shine Effect) */}
+          <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
         </div>
       ))}
     </div>

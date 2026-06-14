@@ -6,37 +6,43 @@ import {
 } from "@heroicons/react/24/outline";
 
 const LogDetailModal = ({ log, onClose, onVerify, getTypeIcon }) => {
-  // تأكيد إننا بنجيب الأيقونة صح، ولو مش موجودة نستخدم ديفولت
-  const IconRender = getTypeIcon ? (
-    getTypeIcon(log.type)
-  ) : (
-    <VideoCameraIcon className="w-10 h-10 text-white" />
-  );
+  // دالة بسيطة لرندرة الأيقونة بأمان
+  const renderIcon = () => {
+    if (getTypeIcon && log.type) {
+      const icon = getTypeIcon(log.type);
+      return React.isValidElement(icon) ? icon : <VideoCameraIcon />;
+    }
+    return <VideoCameraIcon />;
+  };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 text-left">
+      {/* الـ Overlay اللي ورا */}
       <div
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
         onClick={onClose}
       ></div>
 
-      <div className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-xl rounded-[2.5rem] p-10 shadow-2xl backdrop-blur-xl animate-in zoom-in-95 duration-200">
+      {/* الـ Modal نفسه */}
+      <div
+        className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-xl rounded-[2.5rem] p-10 shadow-2xl backdrop-blur-xl animate-in zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()} // منع إغلاق المودال عند الضغط جواه
+      >
         <div className="absolute top-0 left-0 w-full h-1 bg-blue-600"></div>
 
+        {/* زرار الـ X */}
         <button
           onClick={onClose}
-          className="absolute top-8 right-10 text-gray-500 hover:text-white text-3xl transition-all"
+          className="absolute top-8 right-10 text-gray-500 hover:text-white text-3xl transition-all z-50"
         >
           &times;
         </button>
 
         <div className="flex items-start gap-6 mb-8 border-b border-white/5 pb-8">
-          {/* عرض الأيقونة اللي جاية من الـ props */}
-          <div className="p-6  rounded-[2rem] shadow-[0_0_30px_rgba(37,99,235,0.3)]">
-            {/* لو الـ getTypeIcon بترجع Component، بنرندره هنا */}
-            {React.cloneElement(IconRender, {
-              className: "w-10 h-10 text-white"
-            })}
+          <div className="p-6 rounded-[2rem] shadow-[0_0_30px_rgba(37,99,235,0.3)] bg-blue-600/10">
+            <div className="w-10 h-10 text-white flex items-center justify-center">
+              {renderIcon()}
+            </div>
           </div>
           <div>
             <span className="text-blue-500 font-mono text-[10px] font-black uppercase tracking-[0.4em] mb-1 block">
@@ -71,29 +77,44 @@ const LogDetailModal = ({ log, onClose, onVerify, getTypeIcon }) => {
               Accuracy
             </span>
             <span className="text-xl font-black text-green-500">
-              {log.confidence}% Confirmed
+              {log.ai_confidence
+                ? Math.round(log.ai_confidence * 100)
+                : log.confidence || 85}
+              % Confirmed
             </span>
           </div>
           <div className="bg-white/[0.02] p-4 rounded-2xl border border-white/5">
             <span className="text-[8px] text-gray-500 uppercase font-black block mb-1 tracking-widest">
-              Source
+              Location
             </span>
             <span className="text-xl font-black text-white uppercase italic">
-              {log.method}
+              {log.latitude
+                ? `${log.latitude.toFixed(2)}, ${log.longitude.toFixed(2)}`
+                : "Sector 1"}
             </span>
           </div>
         </div>
 
         <div className="flex gap-4">
           <button
-            onClick={onClose}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              onClose();
+            }}
             className="flex-1 py-4 bg-white/5 hover:bg-red-500/10 border border-white/10 rounded-xl font-black text-[9px] text-gray-500 hover:text-red-500 uppercase tracking-widest transition-all"
           >
             Discard
           </button>
+
           <button
-            onClick={() => onVerify(log.id)}
-            className="flex-[2] py-4 bg-blue-600 hover:bg-blue-700 rounded-xl font-black text-[10px] text-white uppercase tracking-[0.2em] transition-all shadow-lg"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              console.log("Confirming log ID:", log.id); // للتأكد في الـ Console
+              onVerify(log.id);
+            }}
+            className="flex-[2] py-4 bg-blue-600 hover:bg-blue-700 rounded-xl font-black text-[10px] text-white uppercase tracking-[0.2em] transition-all shadow-lg active:scale-95"
           >
             Confirm Incident
           </button>

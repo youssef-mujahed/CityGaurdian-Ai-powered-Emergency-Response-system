@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useCallback } from "react";
+import { GoogleMap, useJsApiLoader, MarkerF, InfoWindowF } from "@react-google-maps/api";
 import {
   TruckIcon,
   FireIcon,
@@ -8,186 +8,194 @@ import {
   MapPinIcon,
   ArrowRightIcon
 } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
-const LiveMap = () => {
+const containerStyle = {
+  width: "100%",
+  height: "100%"
+};
+
+const defaultCenter = {
+  lat: 30.0444,
+  lng: 31.2357
+};
+
+const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
   const navigate = useNavigate();
-  const [selectedIncidentId, setSelectedIncidentId] = useState(null);
-  const [incidents, setIncidents] = useState([]);
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyDI8UpdULdepmmKmmdW_oLxcaRa2cgQ68A"
+  });
 
-  const mapUrl =
-    "https://www.propertyfinder.eg/blog/wp-content/uploads/2017/12/Capture-9.png";
+  const [map, setMap] = useState(null);
 
-  // 1. جلب البيانات بأمان من الـ Storage
+  const onLoad = useCallback(function callback(map) {
+    setMap(map);
+  }, []);
+
+  const onUnmount = useCallback(function callback() {
+    setMap(null);
+  }, []);
+
   useEffect(() => {
-    const loadData = () => {
-      try {
-        const rawData = sessionStorage.getItem("verified_emergencies");
-        const saved = rawData ? JSON.parse(rawData) : [];
+    if (map && activeIncident && activeIncident.latitude && activeIncident.longitude) {
+      map.panTo({ lat: activeIncident.latitude, lng: activeIncident.longitude });
+      map.setZoom(18);
+    }
+  }, [activeIncident, map]);
 
-        if (Array.isArray(saved) && saved.length > 0) {
-          const latestFour = saved.slice(0, 4);
-
-          // نستخدم setTimeout لتجنب الـ Synchronous State Update جوه الـ Effect
-          setTimeout(() => {
-            setIncidents(latestFour);
-            // تحديد أول حالة تلقائياً
-            if (latestFour.length > 0) {
-              setSelectedIncidentId(latestFour[0].id);
-            }
-          }, 0);
-        }
-      } catch (err) {
-        console.error("Failed to load incidents:", err);
-      }
-    };
-
-    loadData();
-  }, []); // مصفوفة فارغة لضمان التنفيذ مرة واحدة فقط عند الـ Mount
-
-  const selectedIncident = incidents.find(
-    (inc) => inc.id === selectedIncidentId
-  );
-
-  // 2. توزيع النقط عشوائياً بناءً على الـ ID
-  const getIncidentLocation = (id) => {
-    if (!id) return { top: "50%", left: "50%" };
-    const num = parseInt(id.replace(/\D/g, "")) || 50;
-    return {
-      top: `${((num * 7) % 50) + 25}%`,
-      left: `${((num * 13) % 60) + 20}%`
-    };
-  };
-
-  // 3. دالة الاستايل والأيقونة (تم تصليح الـ props هنا)
   const getTypeStyles = (type) => {
-    const iconProps = { className: "w-6 h-6" }; // التعريف الصحيح للـ props
-
-    if (type === "Accident")
+    const t = type?.toLowerCase() || "";
+    const iconProps = { className: "w-6 h-6" };
+    if (t.includes("accident"))
       return {
         icon: <TruckIcon {...iconProps} />,
-        color: "text-red-500",
-        markerBg: "bg-red-600"
+        color: "text-red-600",
+        bg: "bg-red-50"
       };
-    if (type === "Fire")
+    if (t.includes("fire"))
       return {
         icon: <FireIcon {...iconProps} />,
-        color: "text-orange-500",
-        markerBg: "bg-orange-600"
+        color: "text-orange-600",
+        bg: "bg-orange-50"
       };
-    if (type === "Medical")
+    if (t.includes("medical"))
       return {
         icon: <LifebuoyIcon {...iconProps} />,
-        color: "text-blue-500",
-        markerBg: "bg-blue-600"
+        color: "text-blue-600",
+        bg: "bg-blue-50"
       };
-
     return {
       icon: <ExclamationCircleIcon {...iconProps} />,
-      color: "text-gray-400",
-      markerBg: "bg-gray-600"
+      color: "text-gray-600",
+      bg: "bg-gray-50"
     };
-  };
-
-  // 4. ثيم الأنيميشن للنقطة حسب النوع
-  const getMarkerAnimation = (type) => {
-    if (type === "Fire")
-      return (
-        <>
-          <div className="absolute -inset-4 rounded-full bg-orange-500/20 animate-pulse duration-700"></div>
-          <div className="absolute -inset-8 rounded-full bg-red-600/10 animate-pulse duration-1000"></div>
-        </>
-      );
-    if (type === "Accident")
-      return (
-        <>
-          <div className="absolute -inset-6 rounded-full border border-red-500/40 animate-ping duration-1500"></div>
-          <div className="absolute -inset-2 rounded-full bg-red-600/10 animate-pulse"></div>
-        </>
-      );
-    if (type === "Medical")
-      return (
-        <>
-          <div className="absolute -inset-4 rounded-full border border-blue-500/30 animate-pulse duration-2000"></div>
-          <div className="absolute -inset-8 rounded-full border border-blue-600/10 animate-pulse"></div>
-        </>
-      );
-    return null;
-  };
-
-  const handleSelect = (id) => {
-    setSelectedIncidentId(selectedIncidentId === id ? null : id);
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-full gap-4 overflow-hidden px-4 relative">
-      {/* الخريطة */}
-      <div className="flex-[3] relative rounded-[2.5rem] border border-white/5 overflow-hidden shadow-2xl min-h-[500px]">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${mapUrl}')` }}
-        ></div>
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
-
-        {selectedIncidentId && selectedIncident && (
-          <div
-            className="absolute z-20 transition-all duration-1000 ease-in-out"
-            style={{
-              top: getIncidentLocation(selectedIncident.id).top,
-              left: getIncidentLocation(selectedIncident.id).left,
-              transform: "translate(-50%, -50%)"
+    <div className="flex flex-col lg:flex-row h-full gap-6 overflow-hidden pb-4">
+      {/* الخريطة - Light Mode */}
+      <div className="flex-[3] relative rounded-[3rem] border border-gray-200 overflow-hidden shadow-xl bg-white z-0">
+        {isLoaded ? (
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={defaultCenter}
+            zoom={12}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+            options={{
+              zoomControl: false,
+              streetViewControl: false,
+              mapTypeControl: false,
+              fullscreenControl: false,
             }}
           >
-            {getMarkerAnimation(selectedIncident.type)}
-            <div
-              className={`relative w-12 h-12 rounded-2xl border-2 border-white/40 flex items-center justify-center rotate-45 shadow-2xl ${getTypeStyles(selectedIncident.type).markerBg}`}
-            >
-              <div className="-rotate-45 text-white">
-                {getTypeStyles(selectedIncident.type).icon}
-              </div>
-            </div>
+            {incidents.map((incident) => {
+              const isActive = activeIncident && activeIncident.id === incident.id;
+              return (
+                <MarkerF
+                  key={incident.id}
+                  position={{ lat: incident.latitude, lng: incident.longitude }}
+                  onClick={() => onSelectIncident(incident)}
+                  icon={{
+                    url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+                    scaledSize: window.google ? new window.google.maps.Size(25, 41) : null
+                  }}
+                >
+                  {isActive && (
+                    <InfoWindowF
+                      position={{ lat: incident.latitude, lng: incident.longitude }}
+                      options={{ pixelOffset: new window.google.maps.Size(0, -40) }}
+                      onCloseClick={() => onSelectIncident(null)}
+                    >
+                      <div className="p-1 min-w-[120px] bg-white text-gray-900 rounded-xl">
+                        <p className="font-black text-red-600 uppercase text-[10px]">
+                          {incident.type}
+                        </p>
+                        <p className="text-[9px] text-gray-500 font-bold">
+                          {incident.status}
+                        </p>
+                      </div>
+                    </InfoWindowF>
+                  )}
+                </MarkerF>
+              );
+            })}
+          </GoogleMap>
+        ) : (
+          <div className="flex h-full items-center justify-center text-gray-500 font-bold">
+            Loading Google Maps...
           </div>
         )}
       </div>
 
-      {/* القائمة الجانبية */}
-      <div className="flex-1 min-w-[380px] bg-black/20 backdrop-blur-3xl rounded-[2.5rem] border border-white/10 p-6 flex flex-col gap-4 shadow-2xl h-full">
-        <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-white/5 pb-4">
-          Operations Feed
-        </h2>
+      {/* القائمة الجانبية - بتصميم متناسق مع الهوم */}
+      <div className="flex-1 min-w-[400px] bg-black/5 backdrop-blur-3xl rounded-[3rem] border border-white/10 p-6 flex flex-col gap-4 shadow-2xl h-full border-l border-white/20">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400">
+            Operations Feed
+          </h2>
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+            </span>
+            <span className="text-[10px] font-black text-white/60 uppercase">
+              Live
+            </span>
+          </div>
+        </div>
 
-        <div className="flex-1 space-y-4 overflow-y-auto pr-2 custom-scroll">
+        <div className="flex-1 space-y-3 overflow-y-auto pr-2 custom-scroll">
           {incidents.map((incident) => {
             const style = getTypeStyles(incident.type);
-            const isActive = selectedIncidentId === incident.id;
+            const isActive = activeIncident?.id === incident.id;
             return (
               <div
                 key={incident.id}
-                onClick={() => handleSelect(incident.id)}
-                className={`p-6 border transition-all duration-500 cursor-pointer rounded-[2.5rem] relative 
-                  ${isActive ? "bg-white/15 border-white/20 scale-[1.02]" : "bg-white/5 border-white/5 hover:bg-white/10"}`}
+                onClick={() => onSelectIncident(incident)}
+                className={`p-5 transition-all duration-500 cursor-pointer rounded-[2.2rem] border
+                  ${
+                    isActive
+                      ? "bg-white/20 border-white/30 scale-[1.02] shadow-lg"
+                      : "bg-white/5 border-white/5 hover:bg-white/10"
+                  }`}
               >
-                <div className="flex items-center gap-4 mb-3">
+                <div className="flex items-center gap-4">
                   <div
-                    className={`p-2.5 rounded-xl bg-white/5 border border-white/5 ${style.color}`}
+                    className={`p-3 rounded-2xl bg-black/20 ${style.color} border border-white/5`}
                   >
                     {style.icon}
                   </div>
-                  <div>
-                    <p
-                      className={`text-sm font-black uppercase tracking-tighter ${style.color}`}
-                    >
+                  <div className="flex-1">
+                    <h4 className="text-xs font-black uppercase text-white tracking-tight">
                       {incident.type}
-                    </p>
-                    <p className="text-[10px] text-gray-500 font-mono italic">
-                      {incident.id}
+                    </h4>
+                    <p className="text-[9px] text-gray-500 font-mono italic">
+                      #{incident.id.toString().substring(0, 8)}
                     </p>
                   </div>
+                  <div className="text-right text-[8px] font-black text-gray-500 uppercase tracking-widest">
+                    {new Date(incident.created_at).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    })}
+                  </div>
                 </div>
-                <div className="flex justify-between items-center mt-4 pt-3 border-t border-white/5">
-                  <span className="flex items-center gap-1 text-[10px] text-gray-400 font-bold truncate w-32">
-                    <MapPinIcon className="w-3 h-3" /> {incident.location}
-                  </span>
-                  <span className="text-[8px] text-gray-500 uppercase tracking-widest font-black">
+
+                <div className="mt-4 pt-3 border-t border-white/5 flex justify-between items-center">
+                  <div className="flex items-center gap-1 text-[10px] text-gray-400 font-bold">
+                    <MapPinIcon className="w-3 h-3 text-red-500" />
+                    {incident.latitude.toFixed(3)},{" "}
+                    {incident.longitude.toFixed(3)}
+                  </div>
+                  <span
+                    className={`text-[8px] font-black uppercase px-3 py-1 rounded-full border ${
+                      incident.status === "reported"
+                        ? "border-yellow-500/50 text-yellow-500"
+                        : "border-green-500/50 text-green-500"
+                    }`}
+                  >
                     {incident.status}
                   </span>
                 </div>
@@ -198,14 +206,18 @@ const LiveMap = () => {
 
         <button
           onClick={() => navigate("/emergencies")}
-          className="w-full py-5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-3xl flex items-center justify-center gap-3 transition-all active:scale-95"
+          className="w-full py-5 bg-white text-black hover:bg-gray-200 rounded-[2rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl font-black text-[10px] uppercase tracking-widest"
         >
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-300">
-            Open Control Center
-          </span>
-          <ArrowRightIcon className="w-4 h-4 text-gray-500" />
+          Control Center
+          <ArrowRightIcon className="w-4 h-4" />
         </button>
       </div>
+
+      <style>{`
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+      `}</style>
     </div>
   );
 };

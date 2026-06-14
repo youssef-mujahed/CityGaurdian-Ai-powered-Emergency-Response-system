@@ -10,10 +10,19 @@ import {
 
 const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails }) => {
   const filteredData = data.filter((inc) => {
-    const matchesFilter = activeFilter === "All" || inc.type === activeFilter;
+    const incType = inc.type ? String(inc.type).toLowerCase() : "";
+    const filterType = activeFilter ? String(activeFilter).toLowerCase() : "all";
+    const matchesFilter = filterType === "all" || incType === filterType;
+    
+    const safeId = inc.id != null ? String(inc.id).toLowerCase() : "";
+    const safeLocation = inc.location != null ? String(inc.location).toLowerCase() : "";
+    const safeSearchTerm = searchTerm ? String(searchTerm).toLowerCase() : "";
+
     const matchesSearch =
-      inc.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inc.location.toLowerCase().includes(searchTerm.toLowerCase());
+      safeSearchTerm === "" ||
+      safeId.includes(safeSearchTerm) ||
+      safeLocation.includes(safeSearchTerm);
+
     return matchesFilter && matchesSearch;
   });
 
