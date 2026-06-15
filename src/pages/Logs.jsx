@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import LogDetailModal from "../components/LogDetailModal";
 import api from "../api/axios";
+import Swal from "sweetalert2";
 import {
   MagnifyingGlassIcon,
   VideoCameraIcon,
@@ -30,10 +31,12 @@ const Logs = () => {
 
       if (Array.isArray(resData)) {
         // بنفلتر عشان نعرض فقط الـ reported اللي لسه متمش تأكيدها
-        const unverified = resData.filter(
-          (inc) => inc.status === "reported" || inc.status === "unverified"
+        const unverifiedAIOnly = resData.filter(
+          (inc) => 
+            (inc.status === "reported" || inc.status === "unverified") &&
+            (!inc.source?.toLowerCase().includes('citizen') && inc.ai_confidence)
         );
-        setLogsData(unverified);
+        setLogsData(unverifiedAIOnly);
       }
       setLoading(false);
     } catch (err) {
@@ -55,7 +58,7 @@ const Logs = () => {
   const handleVerify = async (id) => {
     try {
       // إرسال طلب التحديث للسيرفر
-      await api.put(`/api/v1/incidents/${id}/`, { status: "verified" });
+      await api.put(`/api/v1/incidents/${id}`, { status: "verified" });
 
       // مسح العنصر من الصفحة فوراً بعد النجاح
       setLogsData((prev) => prev.filter((log) => log.id !== id));
@@ -63,9 +66,25 @@ const Logs = () => {
       // قفل المودال لو كان مفتوح
       setShowModal(false);
       setSelectedLog(null);
+
+      Swal.fire({
+        title: "Verified!",
+        text: "The incident has been verified.",
+        icon: "success",
+        background: "#1a1a1a",
+        color: "#fff",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (err) {
       console.error("Verify Error:", err);
-      alert("Verification failed. Check API connectivity.");
+      Swal.fire({
+        title: "Error",
+        text: err.response?.data?.message || "Verification failed. Check API connectivity.",
+        icon: "error",
+        background: "#1a1a1a",
+        color: "#fff",
+      });
     }
   };
 
@@ -153,17 +172,18 @@ const Logs = () => {
               <thead>
                 <tr className="border-b border-white/5 bg-white/[0.02] text-[10px] text-gray-500 font-black uppercase tracking-[0.3em]">
                   <th className="px-10 py-6 italic">Signal/Type</th>
+                  <th className="px-8 py-6 text-center italic">Source</th>
                   <th className="px-8 py-6 text-center italic">Location</th>
                   <th className="px-8 py-6 text-center italic">Time</th>
                   <th className="px-8 py-6 italic">Trust Score</th>
-                  <th className="px-10 py-6 text-right italic">Action</th>
+                  <th className="px-10 py-6 text-center italic">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
                 {loading && logsData.length === 0 ? (
                   <tr>
                     <td
-                      colSpan="5"
+                      colSpan="6"
                       className="py-20 text-center text-xs uppercase tracking-widest text-gray-500 animate-pulse italic"
                     >
                       Scanning Network Assets...
@@ -172,7 +192,7 @@ const Logs = () => {
                 ) : filteredLogs.length === 0 ? (
                   <tr>
                     <td
-                      colSpan="5"
+                      colSpan="6"
                       className="py-20 text-center text-xs uppercase tracking-widest text-gray-400 italic"
                     >
                       No Active Signals Detected
@@ -203,6 +223,13 @@ const Logs = () => {
                             </div>
                           </div>
                         </td>
+                        <td className="px-8 py-8 text-center">
+                          <div className="flex justify-center items-center">
+                            <span className="text-[9px] font-black px-3 py-1.5 rounded-full border tracking-widest uppercase text-center flex items-center justify-center min-w-[100px] bg-cyan-600/10 text-cyan-400 border-cyan-500/20">
+                              AI Camera
+                            </span>
+                          </div>
+                        </td>
                         <td className="px-8 py-8 text-center text-gray-400 font-bold italic">
                           <div className="flex items-center justify-center gap-2">
                             <MapPinIcon className="w-4 h-4 text-white/20" />
@@ -225,8 +252,8 @@ const Logs = () => {
                             }
                           />
                         </td>
-                        <td className="px-10 py-8 text-right">
-                          <div className="flex justify-end gap-3">
+                        <td className="px-10 py-8">
+                          <div className="flex justify-center gap-3">
                             <button
                               onClick={() => {
                                 setSelectedLog(log);

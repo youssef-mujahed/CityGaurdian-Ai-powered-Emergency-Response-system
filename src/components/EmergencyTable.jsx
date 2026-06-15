@@ -5,10 +5,11 @@ import {
   TruckIcon,
   LifebuoyIcon,
   ExclamationTriangleIcon,
-  ClockIcon
+  ClockIcon,
+  CheckBadgeIcon
 } from "@heroicons/react/24/outline";
 
-const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails }) => {
+const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails, onVerify }) => {
   const filteredData = data.filter((inc) => {
     const incType = inc.type ? String(inc.type).toLowerCase() : "";
     const filterType = activeFilter ? String(activeFilter).toLowerCase() : "all";
@@ -60,6 +61,9 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails }) => {
             <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
               Incident
             </th>
+            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 text-center">
+              Source
+            </th>
             <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
               Location
             </th>
@@ -69,7 +73,7 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails }) => {
             <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 text-center">
               Status
             </th>
-            <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 text-right">
+            <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 text-center">
               Action
             </th>
           </tr>
@@ -100,15 +104,28 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails }) => {
                       </div>
                     </div>
                   </td>
+                  <td className="px-6 py-6">
+                    <div className="flex justify-center items-center">
+                      <span className={`text-[9px] font-black px-3 py-1.5 rounded-full border tracking-widest uppercase text-center flex items-center justify-center min-w-[100px] ${
+                        (row.source && row.source.toLowerCase().includes('citizen')) || !row.ai_confidence
+                          ? "bg-purple-600/10 text-purple-400 border-purple-500/20"
+                          : "bg-cyan-600/10 text-cyan-400 border-cyan-500/20"
+                      }`}>
+                        {(row.source && row.source.toLowerCase().includes('citizen')) || !row.ai_confidence
+                          ? "Citizen Report"
+                          : "AI Camera"}
+                      </span>
+                    </div>
+                  </td>
                   <td className="px-6 py-6 text-gray-400 font-bold text-xs italic">
                     <div className="flex items-center gap-2">
-                      <MapPinIcon className="w-3.5 h-3.5" /> {row.location}
+                      <MapPinIcon className="w-3.5 h-3.5" /> {row.latitude ? `${row.latitude.toFixed(4)}, ${row.longitude.toFixed(4)}` : row.location}
                     </div>
                   </td>
                   <td className="px-6 py-6">
                     <div className="flex items-center gap-2 text-gray-300 font-mono text-[11px] font-bold">
                       <ClockIcon className="w-3.5 h-3.5 text-green-500 animate-pulse" />{" "}
-                      {row.time}
+                      {row.created_at ? new Date(row.created_at).toLocaleTimeString() : row.time}
                     </div>
                   </td>
                   <td className="px-6 py-6 text-center">
@@ -125,15 +142,29 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails }) => {
                       {row.status}
                     </span>
                   </td>
-                  <td className="px-8 py-6 text-right">
-                    <button
-                      onClick={() => onViewDetails(row)}
-                      className="min-w-[120px] bg-white/5 hover:bg-red-600 border border-white/10 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all"
-                    >
-                      {row.status === "Pending"
-                        ? "Take Action"
-                        : "View Details"}
-                    </button>
+                  <td className="px-8 py-6">
+                    <div className="flex justify-center gap-3">
+                      <button
+                        onClick={() => onViewDetails(row)}
+                        className="min-w-[120px] bg-white/5 hover:bg-red-600 border border-white/10 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all"
+                      >
+                        {row.status === "reported" || row.status === "unverified"
+                          ? "Review"
+                          : "View Details"}
+                      </button>
+                      {(row.status === "reported" || row.status === "unverified") && onVerify && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onVerify(row.id);
+                          }}
+                          className="p-2.5 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl hover:bg-green-500 hover:text-white transition-all"
+                          title="Verify Incident"
+                        >
+                          <CheckBadgeIcon className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               );
@@ -141,7 +172,7 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails }) => {
           ) : (
             <tr>
               <td
-                colSpan="5"
+                colSpan="6"
                 className="py-20 text-center text-gray-600 font-black uppercase tracking-widest italic text-sm"
               >
                 No Results Found

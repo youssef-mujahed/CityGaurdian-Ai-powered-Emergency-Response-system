@@ -3,8 +3,7 @@ import { createPortal } from "react-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import EmergencyTable from "../components/EmergencyTable";
-import api from "../api/axios"; // استدعاء ملف الـ axios اللي عملناه
-import Swal from "sweetalert2";
+import api from "../api/axios";
 import {
   ShieldCheckIcon,
   ClockIcon,
@@ -17,30 +16,27 @@ import {
   DocumentTextIcon
 } from "@heroicons/react/24/outline";
 
-const Emergencies = () => {
+const ResolvedIncidents = () => {
   const [filter, setFilter] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedIncident, setSelectedIncident] = useState(null);
-  const [isDispatching, setIsDispatching] = useState(false);
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. جلب البيانات من السيرفر (الحوادث المؤكدة فقط)
-  const fetchVerifiedIncidents = async () => {
+  // 1. جلب البيانات من السيرفر (الحالات المنتهية)
+  const fetchResolvedIncidents = async () => {
     try {
       setLoading(true);
       const response = await api.get("/api/v1/incidents/");
       const resData = response.data.data || response.data;
 
       if (Array.isArray(resData)) {
-        // هنا الفلترة: بنعرض فقط الحالات اللي جاية من الموبايل (Citizen) ولسه متأكدتش
-        const unverifiedMobileOnly = resData.filter(
-          (inc) =>
-            (inc.status === "reported" || inc.status === "unverified") &&
-            ((inc.source && inc.source.toLowerCase().includes('citizen')) || !inc.ai_confidence)
+        // الفلترة: بنعرض فقط الحالات المغلقة (Resolved)
+        const resolvedOnly = resData.filter(
+          (inc) => inc.status?.toLowerCase() === "resolved"
         );
-        setIncidents(unverifiedMobileOnly);
+        setIncidents(resolvedOnly);
       }
       setLoading(false);
     } catch (err) {
@@ -50,62 +46,14 @@ const Emergencies = () => {
   };
 
   useEffect(() => {
-    fetchVerifiedIncidents();
+    fetchResolvedIncidents();
   }, []);
 
   const stats = useMemo(() => {
     return {
-      active: incidents.filter((i) => i.status !== "Resolved").length,
-      resolved: incidents.filter((i) => i.status === "Resolved").length
+      resolved: incidents.length
     };
   }, [incidents]);
-
-  const handleDispatch = async (id) => {
-    setIsDispatching(true);
-    try {
-      // نبعث للسيرفر إننا بدأنا نتحرك (Responding)
-      await api.put(`/api/v1/incidents/${id}`, { status: "responding" });
-
-      // تحديث الحالة محلياً
-      const updated = incidents.map((inc) =>
-        inc.id === id ? { ...inc, status: "responding" } : inc
-      );
-      setIncidents(updated);
-      setSelectedIncident((prev) => ({ ...prev, status: "responding" }));
-    } catch (err) {
-      console.error("Dispatch failed:", err);
-    } finally {
-      setIsDispatching(false);
-    }
-  };
-
-  const handleVerify = async (id) => {
-    try {
-      await api.put(`/api/v1/incidents/${id}`, { status: "verified" });
-      setIncidents((prev) => prev.filter((inc) => inc.id !== id));
-      if (selectedIncident?.id === id) {
-        setShowModal(false);
-      }
-      Swal.fire({
-        title: "Verified!",
-        text: "The incident has been verified.",
-        icon: "success",
-        background: "#1a1a1a",
-        color: "#fff",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    } catch (err) {
-      console.error("Verify Error:", err);
-      Swal.fire({
-        title: "Error",
-        text: err.response?.data?.message || "Failed to verify incident.",
-        icon: "error",
-        background: "#1a1a1a",
-        color: "#fff",
-      });
-    }
-  };
 
   const getCategoryTheme = (type) => {
     const iconClass = "w-10 h-10";
@@ -148,19 +96,14 @@ const Emergencies = () => {
         <main className="flex-1 overflow-y-auto custom-scroll px-6 pb-10">
           <div className="flex justify-between items-center mb-6 pt-4">
             <div className="bg-white/[0.02] border border-white/10 pl-6 pr-12 py-3 rounded-2xl backdrop-blur-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-red-600"></div>
+              <div className="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
               <h1 className="text-[28px] font-black tracking-tighter uppercase leading-none text-white/90">
-                Citizen Reports
+                Resolved Incidents
               </h1>
             </div>
             <div className="flex gap-4">
               <StatCard
-                label="Pending Review"
-                value={stats.active}
-                color="text-red-500"
-              />
-              <StatCard
-                label="Processed"
+                label="Total Resolved"
                 value={stats.resolved}
                 color="text-green-400"
               />
@@ -194,7 +137,7 @@ const Emergencies = () => {
           <div className="bg-black/20 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] overflow-hidden">
             {loading ? (
               <div className="py-20 text-center animate-pulse text-gray-500">
-                Loading verified reports...
+                Loading resolved reports...
               </div>
             ) : (
               <EmergencyTable
@@ -205,7 +148,6 @@ const Emergencies = () => {
                   setSelectedIncident(inc);
                   setShowModal(true);
                 }}
-                onVerify={handleVerify}
               />
             )}
           </div>
@@ -235,7 +177,7 @@ const Emergencies = () => {
                   {selectedIncident.id}
                 </span>
                 <h2 className="text-4xl font-black text-white uppercase italic">
-                  Citizen Report
+                  Resolved Incident
                 </h2>
               </div>
             </div>
@@ -261,7 +203,11 @@ const Emergencies = () => {
               <DetailBox
                 icon={<IdentificationIcon />}
                 label="System Source"
-                value="Mobile App (Citizen)"
+                value={
+                  (selectedIncident.source && selectedIncident.source.toLowerCase().includes('citizen')) || !selectedIncident.ai_confidence
+                    ? "Mobile App (Citizen)"
+                    : "AI Visual Sensor"
+                }
               />
             </div>
 
@@ -286,13 +232,11 @@ const Emergencies = () => {
               >
                 Close
               </button>
-                <button
-                  onClick={() => handleDispatch(selectedIncident.id)}
-                  disabled={isDispatching}
-                  className={`flex-[2] py-4 ${getCategoryTheme(selectedIncident.type).accent} rounded-xl font-black text-[10px] text-white uppercase`}
-                >
-                  {isDispatching ? "Syncing..." : "Verify & Dispatch"}
-                </button>
+              <div className="flex-[2] py-4 rounded-xl text-center border border-gray-500/20 bg-gray-500/10">
+                <span className="font-black text-[10px] uppercase text-gray-400 tracking-widest">
+                  ✅ Archived
+                </span>
+              </div>
             </div>
           </div>
         </div>,
@@ -302,7 +246,6 @@ const Emergencies = () => {
   );
 };
 
-// الـ Components الفرعية (StatCard, DetailBox) بتفضل زي ما هي
 const StatCard = ({ label, value, color }) => (
   <div className="bg-black/40 border border-white/10 px-8 py-3 rounded-2xl text-center min-w-[110px]">
     <span className={`block text-2xl font-black ${color}`}>{value}</span>
@@ -328,4 +271,4 @@ const DetailBox = ({ icon, label, value, isStatus, statusType }) => (
   </div>
 );
 
-export default Emergencies;
+export default ResolvedIncidents;

@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import Map from "./pages/Map";
 import Emergencies from "./pages/Emergencies";
 import Logs from "./pages/Logs";
+import VerifiedIncidents from "./pages/VerifiedIncidents";
+import ResolvedIncidents from "./pages/ResolvedIncidents";
 import Settings from "./pages/Settings";
 import backgroundImage from "./assets/bg.png";
 import "./App.css";
@@ -40,6 +42,8 @@ function App() {
             <Route path="/map" element={<Map />} />
             <Route path="/emergencies" element={<Emergencies />} />
             <Route path="/logs" element={<Logs />} />
+            <Route path="/verified" element={<VerifiedIncidents />} />
+            <Route path="/resolved" element={<ResolvedIncidents />} />
             <Route path="/settings" element={<Settings />} />
 
             {/* أي لينك غلط يرجعه للساين إن */}

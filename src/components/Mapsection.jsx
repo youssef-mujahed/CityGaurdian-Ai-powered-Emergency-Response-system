@@ -42,9 +42,8 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
   }, [activeIncident, map]);
 
   return (
-    <div className="px-10 mt-2 relative">
-      <div className="relative w-full h-[500px] rounded-[3rem] border border-gray-200 overflow-hidden shadow-2xl bg-white z-0">
-        {isLoaded ? (
+    <div className="relative w-full h-[500px] bg-white z-0">
+      {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={defaultCenter}
@@ -126,7 +125,6 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

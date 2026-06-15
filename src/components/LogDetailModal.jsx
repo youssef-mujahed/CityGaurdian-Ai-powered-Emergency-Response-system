@@ -1,4 +1,6 @@
 import React from "react";
+import { createPortal } from "react-dom";
+import api from "../api/axios";
 import {
   XMarkIcon,
   ExclamationTriangleIcon,
@@ -15,8 +17,8 @@ const LogDetailModal = ({ log, onClose, onVerify, getTypeIcon }) => {
     return <VideoCameraIcon />;
   };
 
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 text-left">
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 text-left">
       {/* الـ Overlay اللي ورا */}
       <div
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
@@ -58,17 +60,33 @@ const LogDetailModal = ({ log, onClose, onVerify, getTypeIcon }) => {
         </div>
 
         {/* Feed Preview */}
-        <div className="aspect-video bg-white/5 rounded-3xl mb-8 border border-white/5 flex flex-col items-center justify-center relative overflow-hidden group">
-          <div className="absolute top-4 left-6 flex items-center gap-2">
-            <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></div>
-            <span className="text-[9px] font-black uppercase text-white/40 tracking-widest">
+        <div className="aspect-video bg-white/5 rounded-3xl mb-8 border border-white/5 flex items-center justify-center relative overflow-hidden group">
+          {/* Real Image Feed */}
+          <img 
+            src={`${api.defaults.baseURL}/api/v1/image/${log.id}`} 
+            alt="AI Detection Frame" 
+            className="w-full h-full object-contain bg-black/50"
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'flex';
+            }}
+          />
+          
+          {/* Fallback Placeholder (Hidden by default, shown if image fails) */}
+          <div className="hidden flex-col items-center justify-center w-full h-full">
+            <ExclamationTriangleIcon className="w-12 h-12 text-white/5 mb-2" />
+            <span className="text-[10px] font-black uppercase text-white/20 tracking-[0.5em]">
+              Waiting for stream...
+            </span>
+          </div>
+
+          {/* REC Badge */}
+          <div className="absolute top-4 left-6 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+            <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]"></div>
+            <span className="text-[9px] font-black uppercase text-white/80 tracking-widest">
               Live Feed Buffer
             </span>
           </div>
-          <ExclamationTriangleIcon className="w-12 h-12 text-white/5 mb-2" />
-          <span className="text-[10px] font-black uppercase text-white/20 tracking-[0.5em]">
-            Waiting for stream...
-          </span>
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-10">
@@ -120,7 +138,8 @@ const LogDetailModal = ({ log, onClose, onVerify, getTypeIcon }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

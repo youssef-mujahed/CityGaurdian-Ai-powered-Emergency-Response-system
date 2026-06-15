@@ -6,7 +6,9 @@ import {
   GlobeAltIcon,
   PlusIcon,
   VideoCameraIcon,
-  Cog6ToothIcon
+  Cog6ToothIcon,
+  CheckBadgeIcon,
+  CheckCircleIcon
 } from "@heroicons/react/24/outline";
 
 const Sidebar = () => {
@@ -22,6 +24,16 @@ const Sidebar = () => {
       name: "AI Detection Logs",
       icon: VideoCameraIcon,
       path: "/logs"
+    },
+    {
+      name: "Verified Incidents",
+      icon: CheckBadgeIcon,
+      path: "/verified"
+    },
+    {
+      name: "Resolved Incidents",
+      icon: CheckCircleIcon,
+      path: "/resolved"
     },
     {
       name: "System Settings",
