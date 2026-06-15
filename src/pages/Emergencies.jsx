@@ -136,20 +136,20 @@ const Emergencies = () => {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col text-white overflow-hidden bg-transparent">
+    <div className="h-screen w-full flex flex-col text-gray-900 dark:text-white overflow-hidden bg-transparent">
       <Navbar />
       <div className="flex flex-1 overflow-hidden pt-2 pr-4 gap-2">
         <div className="hidden md:block h-full pl-4">
-          <div className="h-full bg-black/20 backdrop-blur-xs border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl ml-5">
+          <div className="h-full bg-white/80 dark:bg-black/20 backdrop-blur-xs border border-gray-200 dark:border-white/5 rounded-[2.5rem] overflow-hidden shadow-xl dark:shadow-2xl ml-5">
             <Sidebar />
           </div>
         </div>
 
         <main className="flex-1 overflow-y-auto custom-scroll px-6 pb-10">
           <div className="flex justify-between items-center mb-6 pt-4">
-            <div className="bg-white/[0.02] border border-white/10 pl-6 pr-12 py-3 rounded-2xl backdrop-blur-sm relative overflow-hidden">
+            <div className="bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 pl-6 pr-12 py-3 rounded-2xl backdrop-blur-sm relative overflow-hidden shadow-sm dark:shadow-none">
               <div className="absolute top-0 left-0 w-1 h-full bg-red-600"></div>
-              <h1 className="text-[28px] font-black tracking-tighter uppercase leading-none text-white/90">
+              <h1 className="text-[28px] font-black tracking-tighter uppercase leading-none text-gray-900 dark:text-white/90">
                 Citizen Reports
               </h1>
             </div>
@@ -167,8 +167,8 @@ const Emergencies = () => {
             </div>
           </div>
 
-          <div className="bg-black/30 backdrop-blur-md border border-white/10 p-3 rounded-[1.8rem] mb-6 flex items-center gap-4">
-            <div className="flex bg-black/40 p-1.5 rounded-xl border border-white/5 gap-1">
+          <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md border border-gray-200 dark:border-white/10 p-3 rounded-[1.8rem] mb-6 flex items-center gap-4 shadow-sm dark:shadow-none">
+            <div className="flex bg-gray-100 dark:bg-black/40 p-1.5 rounded-xl border border-gray-200 dark:border-white/5 gap-1">
               {["All", "Accident", "Fire", "Medical"].map((opt) => (
                 <button
                   key={opt}
@@ -186,12 +186,12 @@ const Emergencies = () => {
                 placeholder="Search Incident ID..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-black/20 border border-white/5 rounded-xl py-3 pl-12 text-xs outline-none"
+                className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-white/5 rounded-xl py-3 pl-12 text-xs outline-none text-gray-900 dark:text-white"
               />
             </div>
           </div>
 
-          <div className="bg-black/20 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] overflow-hidden">
+          <div className="bg-white/80 dark:bg-black/20 backdrop-blur-3xl border border-gray-200 dark:border-white/10 rounded-[2.5rem] overflow-hidden shadow-xl dark:shadow-none">
             {loading ? (
               <div className="py-20 text-center animate-pulse text-gray-500">
                 Loading verified reports...
@@ -218,7 +218,7 @@ const Emergencies = () => {
             className="absolute inset-0 bg-black/60 backdrop-blur-md"
             onClick={() => setShowModal(false)}
           ></div>
-          <div className="relative bg-[#0a0a0a]/90 border border-white/10 w-full max-w-xl rounded-[2.5rem] p-10 shadow-2xl">
+          <div className="relative bg-white dark:bg-[#0a0a0a]/90 border border-gray-200 dark:border-white/10 w-full max-w-xl rounded-[2.5rem] p-10 shadow-2xl">
             <div
               className={`absolute top-0 left-0 w-full h-1 ${getCategoryTheme(selectedIncident.type).accent}`}
             ></div>
@@ -234,7 +234,7 @@ const Emergencies = () => {
                 >
                   {selectedIncident.id}
                 </span>
-                <h2 className="text-4xl font-black text-white uppercase italic">
+                <h2 className="text-4xl font-black text-gray-900 dark:text-white uppercase italic">
                   Citizen Report
                 </h2>
               </div>

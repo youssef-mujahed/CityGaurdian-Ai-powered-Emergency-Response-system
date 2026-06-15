@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 
 const Settings = () => {
   return (
-    <div className="h-screen w-full flex flex-col text-white overflow-hidden bg-transparent">
+    <div className="h-screen w-full flex flex-col text-gray-900 dark:text-white overflow-hidden bg-transparent">
       {/* 1. الناف بار العلوي */}
       <Navbar />
 
@@ -13,7 +13,7 @@ const Settings = () => {
         <div className="hidden md:block h-full pl-4">
           {" "}
           {/* pl-4 هنا عشان يدي مسافة بسيطة من حرف الشاشة لو الناف بار فيه مسافة */}
-          <div className="h-full bg-black/20 backdrop-blur-xs border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl ml-5">
+          <div className="h-full bg-white/80 dark:bg-black/20 backdrop-blur-xs border border-gray-200 dark:border-white/5 rounded-[2.5rem] overflow-hidden shadow-xl dark:shadow-2xl ml-5">
             <Sidebar />
           </div>
         </div>

@@ -34,11 +34,11 @@ const Map = () => {
   }, []);
 
   return (
-    <div className="h-screen w-full flex flex-col text-white overflow-hidden bg-transparent">
+    <div className="h-screen w-full flex flex-col text-gray-900 dark:text-white overflow-hidden bg-transparent">
       <Navbar />
       <div className="flex flex-1 overflow-hidden pt-2 pr-4 gap-2">
         <div className="hidden md:block h-full pl-4">
-          <div className="h-full bg-black/20 backdrop-blur-xs border border-white/5 rounded-[2.5rem] overflow-hidden ml-5">
+          <div className="h-full bg-white/80 dark:bg-black/20 backdrop-blur-xs border border-gray-200 dark:border-white/5 rounded-[2.5rem] overflow-hidden ml-5 shadow-xl dark:shadow-none">
             <Sidebar />
           </div>
         </div>

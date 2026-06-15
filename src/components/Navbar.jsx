@@ -7,14 +7,18 @@ import {
   BellIcon,
   Cog6ToothIcon,
   UserCircleIcon,
-  ArrowRightOnRectangleIcon
+  ArrowRightOnRectangleIcon,
+  SunIcon,
+  MoonIcon
 } from "@heroicons/react/24/outline";
+import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [userName, setUserName] = useState("Loading..."); // حالة لحفظ الاسم
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const { theme, toggleTheme } = useTheme();
 
   // 1. جلب بيانات المستخدم عند تحميل الناف بار
   useEffect(() => {
@@ -65,7 +69,7 @@ const Navbar = () => {
 
   return (
     <div className="pt-5 px-10 w-full flex justify-center relative z-[999]">
-      <header className="w-full max-w-[1750px] bg-[#0a0a0a]/30 backdrop-blur-xl border border-white/5 rounded-sm p-4 shadow-2xl relative">
+      <header className="w-full max-w-[1750px] bg-white/80 dark:bg-[#0a0a0a]/30 backdrop-blur-xl border border-gray-200 dark:border-white/5 rounded-sm p-4 shadow-xl dark:shadow-2xl relative">
         <div className="flex items-center justify-between px-2">
           {/* الجزء الشمال: اللوجو والاسم */}
           <Link
@@ -75,29 +79,41 @@ const Navbar = () => {
             <div className="flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img src={logo} alt="Logo" className="w-14 h-14 object-contain" />
             </div>
-            <div className="flex flex-col border-r border-white/10 pr-8">
-              <h1 className="text-white text-[28px] font-bold tracking-[0.1em] uppercase leading-none transition-colors group-hover:text-red-500">
+            <div className="flex flex-col border-r border-gray-300 dark:border-white/10 pr-8">
+              <h1 className="text-gray-900 dark:text-white text-[28px] font-bold tracking-[0.1em] uppercase leading-none transition-colors group-hover:text-red-600 dark:group-hover:text-red-500">
                 Emergency Response AI
               </h1>
-              <p className="text-blue-100 text-[11px] mt-2 uppercase tracking-[0.1em] font-semibold opacity-80">
+              <p className="text-blue-600 dark:text-blue-100 text-[11px] mt-2 uppercase tracking-[0.1em] font-semibold opacity-80">
                 AI Powered Emergency & Traffic System
               </p>
             </div>
           </Link>
 
           {/* مؤشر الـ Online */}
-          <div className="flex items-center gap-2.5 bg-black/40 px-4 py-1.5 border border-green-500/20 rounded-full">
+          <div className="flex items-center gap-2.5 bg-gray-100 dark:bg-black/40 px-4 py-1.5 border border-green-500/20 rounded-full">
             <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
-            <span className="text-green-500 text-[11px] font-black uppercase tracking-widest leading-none">
+            <span className="text-green-600 dark:text-green-500 text-[11px] font-black uppercase tracking-widest leading-none">
               Online
             </span>
           </div>
 
           {/* الجزء اليمين: التنبيهات والأدمن */}
-          <div className="flex items-center gap-4 pl-8 border-l border-white/10">
+          <div className="flex items-center gap-4 pl-8 border-l border-gray-300 dark:border-white/10">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-colors"
+            >
+              {theme === "dark" ? (
+                <SunIcon className="w-6 h-6 text-yellow-400" />
+              ) : (
+                <MoonIcon className="w-6 h-6 text-gray-600" />
+              )}
+            </button>
+
             <div className="text-right leading-tight">
               {/* 2. هنا بنعرض الاسم اللي جبناه */}
-              <p className="text-white text-sm font-bold tracking-wider capitalize">
+              <p className="text-gray-900 dark:text-white text-sm font-bold tracking-wider capitalize">
                 {userName}
               </p>
               <p className="text-gray-500 text-[10px] uppercase font-black tracking-tighter opacity-70">
@@ -116,12 +132,12 @@ const Navbar = () => {
               </div>
 
               {showDropdown && (
-                <div className="absolute right-0 mt-4 w-52 bg-[#0c0c0c] border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] py-2 z-[1000] animate-in fade-in zoom-in duration-200 ring-1 ring-white/5">
-                  <div className="px-4 py-3 border-b border-white/5 mb-1 bg-white/[0.02]">
+                <div className="absolute right-0 mt-4 w-52 bg-white dark:bg-[#0c0c0c] border border-gray-200 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.9)] py-2 z-[1000] animate-in fade-in zoom-in duration-200 ring-1 ring-black/5 dark:ring-white/5">
+                  <div className="px-4 py-3 border-b border-gray-100 dark:border-white/5 mb-1 bg-gray-50 dark:bg-white/[0.02]">
                     <p className="text-[9px] text-gray-500 font-black uppercase tracking-[0.2em]">
                       Session Control
                     </p>
-                    <p className="text-white text-[11px] font-bold mt-1">
+                    <p className="text-gray-900 dark:text-white text-[11px] font-bold mt-1">
                       {userName}
                     </p>
                   </div>

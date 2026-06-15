@@ -42,7 +42,7 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
   }, [activeIncident, map]);
 
   return (
-    <div className="relative w-full h-[500px] bg-white z-0">
+    <div className="relative w-full h-[500px] bg-gray-100 dark:bg-black/20 z-0">
       {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -75,14 +75,14 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
                       onCloseClick={() => setLocalActiveId(null)}
                       options={{ pixelOffset: new window.google.maps.Size(0, -40) }}
                     >
-                      <div className="p-2 min-w-[180px] bg-white text-gray-900 rounded-xl">
+                      <div className="p-2 min-w-[180px] bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-xl shadow-lg">
                         <div className="flex items-center gap-2 mb-2 border-b border-gray-100 pb-2">
                           <div className="w-3 h-3 bg-red-600 rounded-full animate-ping"></div>
-                          <h3 className="font-black text-gray-900 uppercase text-[12px]">
+                          <h3 className="font-black text-gray-900 dark:text-white uppercase text-[12px]">
                             {incident.type}
                           </h3>
                         </div>
-                        <div className="space-y-1.5 text-[11px] font-bold text-gray-600">
+                        <div className="space-y-1.5 text-[11px] font-bold text-gray-600 dark:text-gray-300">
                           <p className="flex justify-between">
                             <span>STATUS:</span>
                             <span className="text-red-600 uppercase">
@@ -114,10 +114,10 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
         )}
 
         <div className="absolute bottom-6 right-8 z-[1000] pointer-events-none">
-          <div className="bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-gray-200 shadow-xl">
+          <div className="bg-white/90 dark:bg-black/80 backdrop-blur-md px-5 py-3 rounded-2xl border border-gray-200 dark:border-white/10 shadow-xl">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <p className="text-[10px] font-black text-gray-800 tracking-widest uppercase">
+              <p className="text-[10px] font-black text-gray-800 dark:text-white tracking-widest uppercase">
                 Satellite Link:{" "}
                 <span className="text-blue-600">Established</span>
               </p>

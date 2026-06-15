@@ -130,7 +130,7 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
       </div>
 
       {/* القائمة الجانبية - بتصميم متناسق مع الهوم */}
-      <div className="flex-1 min-w-[400px] bg-black/5 backdrop-blur-3xl rounded-[3rem] border border-white/10 p-6 flex flex-col gap-4 shadow-2xl h-full border-l border-white/20">
+      <div className="flex-1 min-w-[400px] bg-white/80 dark:bg-black/5 backdrop-blur-3xl rounded-[3rem] border border-gray-200 dark:border-white/10 p-6 flex flex-col gap-4 shadow-2xl h-full border-l border-gray-200 dark:border-white/20">
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400">
             Operations Feed
@@ -140,7 +140,7 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
             </span>
-            <span className="text-[10px] font-black text-white/60 uppercase">
+            <span className="text-[10px] font-black text-gray-900 dark:text-white/60 uppercase">
               Live
             </span>
           </div>
@@ -157,18 +157,18 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
                 className={`p-5 transition-all duration-500 cursor-pointer rounded-[2.2rem] border
                   ${
                     isActive
-                      ? "bg-white/20 border-white/30 scale-[1.02] shadow-lg"
-                      : "bg-white/5 border-white/5 hover:bg-white/10"
+                      ? "bg-gray-200 dark:bg-white/20 border-gray-300 dark:border-white/30 scale-[1.02] shadow-lg"
+                      : "bg-white dark:bg-white/5 border-gray-200 dark:border-white/5 hover:bg-gray-100 dark:hover:bg-white/10"
                   }`}
               >
                 <div className="flex items-center gap-4">
                   <div
-                    className={`p-3 rounded-2xl bg-black/20 ${style.color} border border-white/5`}
+                    className={`p-3 rounded-2xl bg-gray-100 dark:bg-black/20 ${style.color} border border-gray-200 dark:border-white/5`}
                   >
                     {style.icon}
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-xs font-black uppercase text-white tracking-tight">
+                    <h4 className="text-xs font-black uppercase text-gray-900 dark:text-white tracking-tight">
                       {incident.type}
                     </h4>
                     <p className="text-[9px] text-gray-500 font-mono italic">
@@ -183,7 +183,7 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-white/5 flex justify-between items-center">
+                <div className="mt-4 pt-3 border-t border-gray-200 dark:border-white/5 flex justify-between items-center">
                   <div className="flex items-center gap-1 text-[10px] text-gray-400 font-bold">
                     <MapPinIcon className="w-3 h-3 text-red-500" />
                     {incident.latitude.toFixed(3)},{" "}
@@ -206,7 +206,7 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
 
         <button
           onClick={() => navigate("/emergencies")}
-          className="w-full py-5 bg-white text-black hover:bg-gray-200 rounded-[2rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl font-black text-[10px] uppercase tracking-widest"
+          className="w-full py-5 bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 rounded-[2rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl font-black text-[10px] uppercase tracking-widest"
         >
           Control Center
           <ArrowRightIcon className="w-4 h-4" />

@@ -21,8 +21,8 @@ const Statscard = ({ incidents = [] }) => {
       value: activeCount.toString(),
       description: "Ongoing Incidents",
       icon: ExclamationTriangleIcon,
-      defaultBg: "bg-red-950/20",
-      defaultBorder: "border-red-900/30",
+      defaultBg: "bg-red-50 dark:bg-red-950/20",
+      defaultBorder: "border-red-200 dark:border-red-900/30",
       activeBg: "group-hover:bg-red-600/30",
       activeBorder: "group-hover:border-red-500",
       glow: "group-hover:shadow-[0_0_40px_rgba(220,38,38,0.5),inset_0_0_20px_rgba(220,38,38,0.2)]",
@@ -35,8 +35,8 @@ const Statscard = ({ incidents = [] }) => {
       value: highSeverity.toString(),
       description: "AI Confirmed",
       icon: SignalIcon,
-      defaultBg: "bg-yellow-950/20",
-      defaultBorder: "border-yellow-900/30",
+      defaultBg: "bg-yellow-50 dark:bg-yellow-950/20",
+      defaultBorder: "border-yellow-200 dark:border-yellow-900/30",
       activeBg: "group-hover:bg-yellow-600/30",
       activeBorder: "group-hover:border-yellow-500",
       glow: "group-hover:shadow-[0_0_40px_rgba(234,179,8,0.5),inset_0_0_20px_rgba(234,179,8,0.2)]",
@@ -49,8 +49,8 @@ const Statscard = ({ incidents = [] }) => {
       value: incidents.length.toString(),
       description: "Last 24 Hours",
       icon: TruckIcon,
-      defaultBg: "bg-green-950/20",
-      defaultBorder: "border-green-900/30",
+      defaultBg: "bg-green-50 dark:bg-green-950/20",
+      defaultBorder: "border-green-200 dark:border-green-900/30",
       activeBg: "group-hover:bg-green-600/30",
       activeBorder: "group-hover:border-green-500",
       glow: "group-hover:shadow-[0_0_40px_rgba(34,197,94,0.5),inset_0_0_20px_rgba(34,197,94,0.2)]",
@@ -63,8 +63,8 @@ const Statscard = ({ incidents = [] }) => {
       value: "ONLINE",
       description: "Model: YOLOv8",
       icon: CpuChipIcon,
-      defaultBg: "bg-purple-950/20",
-      defaultBorder: "border-purple-900/30",
+      defaultBg: "bg-purple-50 dark:bg-purple-950/20",
+      defaultBorder: "border-purple-200 dark:border-purple-900/30",
       activeBg: "group-hover:bg-purple-600/30",
       activeBorder: "group-hover:border-purple-500",
       glow: "group-hover:shadow-[0_0_40px_rgba(168,85,247,0.5),inset_0_0_20px_rgba(168,85,247,0.2)]",
@@ -88,7 +88,7 @@ const Statscard = ({ incidents = [] }) => {
           {/* Header Info */}
           <div className="flex items-center gap-3 relative z-10">
             <div
-              className={`p-2 rounded-xl bg-black/40 border border-white/10 ${card.activeBorder} transition-all duration-700`}
+              className={`p-2 rounded-xl bg-white dark:bg-black/40 border border-gray-200 dark:border-white/10 ${card.activeBorder} transition-all duration-700`}
             >
               <card.icon
                 className={`w-7 h-7 ${card.accent} ${card.textGlow} transition-all duration-700 group-hover:rotate-[360deg]`}
@@ -104,7 +104,7 @@ const Statscard = ({ incidents = [] }) => {
           {/* Value and Description */}
           <div className="flex flex-col gap-0.5 relative z-10">
             <h2
-              className={`text-3xl font-black tracking-tighter text-white transition-all duration-700 ${card.textGlow} group-hover:scale-105 origin-left`}
+              className={`text-3xl font-black tracking-tighter text-gray-900 dark:text-white transition-all duration-700 ${card.textGlow} group-hover:scale-105 origin-left`}
             >
               {card.value}
             </h2>
@@ -116,7 +116,7 @@ const Statscard = ({ incidents = [] }) => {
           </div>
 
           {/* ⚡ تأثير لمعة الضوء اللي بتتحرك (The Shine Effect) */}
-          <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+          <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/50 dark:via-white/10 to-transparent"></div>
         </div>
       ))}
     </div>

@@ -65,20 +65,20 @@ const AuthPage = () => {
             <UserIcon className="w-8 h-8 text-white" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-3xl font-black tracking-tighter text-white uppercase leading-none">
+            <h1 className="text-3xl font-black tracking-tighter text-gray-900 dark:text-white uppercase leading-none">
               Emergency <span className="text-red-600">Response</span> AI
             </h1>
-            <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em] mt-2 italic opacity-80">
+            <p className="text-[10px] text-gray-500 dark:text-gray-400 font-black uppercase tracking-[0.4em] mt-2 italic opacity-80">
               Authorized Personnel Only
             </p>
           </div>
         </div>
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2.5 px-6 py-2 border border-white/5 rounded-full bg-black/40 text-gray-400 font-black text-[10px] uppercase tracking-widest">
+          <div className="flex items-center gap-2.5 px-6 py-2 border border-gray-200 dark:border-white/5 rounded-full bg-gray-100 dark:bg-black/40 text-gray-600 dark:text-gray-400 font-black text-[10px] uppercase tracking-widest">
             <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_#dc2626]"></span>
             System Secured
           </div>
-          <button className="text-gray-500 hover:text-white transition-colors">
+          <button className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
             <Cog8ToothIcon className="w-6 h-6" />
           </button>
         </div>
@@ -87,11 +87,11 @@ const AuthPage = () => {
       {/* 2. Main Login Container */}
       <main className="flex-1 w-full flex items-center justify-center p-6 relative z-0">
         <div className="w-full max-w-[550px]">
-          <div className="bg-black/40 backdrop-blur-3xl border border-white/5 rounded-[3.5rem] p-12 shadow-[0_20px_60px_rgba(0,0,0,0.6)] relative overflow-hidden group">
+          <div className="bg-white/80 dark:bg-black/40 backdrop-blur-3xl border border-gray-200 dark:border-white/5 rounded-[3.5rem] p-12 shadow-2xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)] relative overflow-hidden group">
             {/* Ambient Light Effect */}
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-600/10 blur-[80px] group-hover:bg-red-600/20 transition-all duration-700"></div>
 
-            <h2 className="text-4xl font-black tracking-tighter text-white uppercase mb-14 text-center">
+            <h2 className="text-4xl font-black tracking-tighter text-gray-900 dark:text-white uppercase mb-14 text-center">
               Internal <span className="text-red-600">Login</span>
             </h2>
 
@@ -161,7 +161,7 @@ const InputGroup = ({ icon, placeholder, type = "text", value, onChange }) => {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full bg-white/[0.02] border border-white/5 rounded-2xl py-5 pl-14 pr-14 text-sm outline-none focus:border-red-600/30 focus:bg-white/[0.05] transition-all text-white placeholder:text-gray-700 placeholder:text-[10px] placeholder:uppercase placeholder:font-black placeholder:tracking-[0.2em]"
+        className="w-full bg-gray-100 dark:bg-white/[0.02] border border-gray-200 dark:border-white/5 rounded-2xl py-5 pl-14 pr-14 text-sm outline-none focus:border-red-600/30 focus:bg-white dark:focus:bg-white/[0.05] transition-all text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-700 placeholder:text-[10px] placeholder:uppercase placeholder:font-black placeholder:tracking-[0.2em]"
       />
 
       {/* زر العين للحقول من نوع باسوورد فقط */}
