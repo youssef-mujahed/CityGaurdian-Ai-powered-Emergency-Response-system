@@ -12,7 +12,7 @@ import Emergencies from "./pages/Emergencies";
 import Logs from "./pages/Logs";
 import VerifiedIncidents from "./pages/VerifiedIncidents";
 import ResolvedIncidents from "./pages/ResolvedIncidents";
-import Settings from "./pages/Settings";
+import Fleet from "./pages/Fleet";
 import backgroundImage from "./assets/bg.png";
 import lightBackgroundImage from "./assets/light_mode_background.png";
 import { useTheme } from "./context/ThemeContext";
@@ -51,7 +51,7 @@ function App() {
             <Route path="/logs" element={<Logs />} />
             <Route path="/verified" element={<VerifiedIncidents />} />
             <Route path="/resolved" element={<ResolvedIncidents />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/fleet" element={<Fleet />} />
 
             {/* أي لينك غلط يرجعه للساين إن */}
             <Route path="*" element={<Navigate to="/" />} />

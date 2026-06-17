@@ -57,40 +57,40 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails, onVerif
     <div className="w-full overflow-x-auto font-sans">
       <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="border-b border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/[0.02]">
-            <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
+          <tr className="border-b border-white/50 dark:border-white/10 bg-white/40 dark:bg-white/[0.02]">
+            <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">
               Incident
             </th>
-            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 text-center">
+            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 text-center">
               Source
             </th>
-            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
+            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">
               Location
             </th>
-            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
+            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">
               Time
             </th>
-            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 text-center">
+            <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 text-center">
               Status
             </th>
-            <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 text-center">
+            <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 text-center">
               Action
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 dark:divide-white/5">
+        <tbody className="divide-y divide-white/50 dark:divide-white/5">
           {filteredData.length > 0 ? (
             filteredData.map((row) => {
               const style = getRowStyles(row.type);
               return (
                 <tr
                   key={row.id}
-                  className="hover:bg-gray-50 dark:hover:bg-white/[0.03] transition-all group"
+                  className="hover:bg-white/50 dark:hover:bg-white/[0.03] transition-all group"
                 >
                   <td className="px-8 py-6">
                     <div className="flex items-center gap-4">
                       <div
-                        className={`p-2.5 rounded-xl border border-gray-200 dark:border-white/5 ${style.bg} ${style.color}`}
+                        className={`p-2.5 rounded-xl border border-white/50 dark:border-white/5 ${style.bg} ${style.color}`}
                       >
                         {style.icon}
                       </div>
@@ -98,7 +98,7 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails, onVerif
                         <span className="text-red-500 font-mono text-[10px] font-black block tracking-widest">
                           {row.id}
                         </span>
-                        <span className="text-gray-900 dark:text-white font-black text-base uppercase tracking-tighter">
+                        <span className="text-slate-800 dark:text-white font-black text-base uppercase tracking-tighter">
                           {row.type}
                         </span>
                       </div>
@@ -117,13 +117,13 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails, onVerif
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-6 text-gray-500 dark:text-gray-400 font-bold text-xs italic">
+                  <td className="px-6 py-6 text-slate-500 dark:text-gray-400 font-bold text-xs italic">
                     <div className="flex items-center gap-2">
                       <MapPinIcon className="w-3.5 h-3.5" /> {row.latitude ? `${row.latitude.toFixed(4)}, ${row.longitude.toFixed(4)}` : row.location}
                     </div>
                   </td>
                   <td className="px-6 py-6">
-                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 font-mono text-[11px] font-bold">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-gray-300 font-mono text-[11px] font-bold">
                       <ClockIcon className="w-3.5 h-3.5 text-green-500 animate-pulse" />{" "}
                       {row.created_at ? new Date(row.created_at).toLocaleTimeString() : row.time}
                     </div>
@@ -146,7 +146,7 @@ const EmergencyTable = ({ data, activeFilter, searchTerm, onViewDetails, onVerif
                     <div className="flex justify-center gap-3">
                       <button
                         onClick={() => onViewDetails(row)}
-                        className="min-w-[120px] bg-white dark:bg-white/5 hover:bg-red-600 dark:hover:bg-red-600 border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all text-gray-900 hover:text-white dark:text-white"
+                        className="min-w-[120px] bg-white/60 dark:bg-white/5 hover:bg-red-600 dark:hover:bg-red-600 border border-white/50 dark:border-white/10 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all text-slate-800 hover:text-white dark:text-white"
                       >
                         {row.status === "reported" || row.status === "unverified"
                           ? "Review"

@@ -48,13 +48,13 @@ const Home = () => {
   }, [fetchIncidents]);
 
   return (
-    <div className="h-screen w-full flex flex-col text-gray-900 dark:text-white overflow-hidden">
+    <div className="h-screen w-full flex flex-col text-slate-800 dark:text-white overflow-hidden">
       <Navbar />
 
       <div className="flex flex-1 overflow-hidden pt-2 pr-4 gap-2">
         {/* Side Navigation */}
         <div className="hidden md:block h-full pl-4">
-          <div className="h-full bg-white/80 dark:bg-black/20 backdrop-blur-md border border-gray-200 dark:border-white/5 rounded-[2.5rem] overflow-hidden shadow-xl dark:shadow-2xl ml-5">
+          <div className="h-full bg-white/40 dark:bg-black/20 backdrop-blur-md border border-white/50 dark:border-white/5 rounded-[2.5rem] overflow-hidden shadow-xl dark:shadow-2xl ml-5">
             <Sidebar />
           </div>
         </div>
@@ -78,7 +78,7 @@ const Home = () => {
               </div>
 
               {/* 2. Tactical Map View */}
-              <div className="w-full bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-[2.5rem] border border-gray-200 dark:border-white/5 overflow-hidden shadow-xl dark:shadow-2xl">
+              <div className="w-full bg-white/40 dark:bg-black/30 backdrop-blur-md rounded-[2.5rem] border border-white/50 dark:border-white/5 overflow-hidden shadow-xl dark:shadow-2xl">
                 <Mapsection
                   incidents={incidents}
                   activeIncident={selectedIncident}
@@ -86,7 +86,7 @@ const Home = () => {
               </div>
 
               {/* 3. Detailed Incidents Table */}
-              <div className="w-full bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-[2.5rem] border border-gray-200 dark:border-white/5 overflow-hidden shadow-xl dark:shadow-2xl">
+              <div className="w-full bg-white/40 dark:bg-black/30 backdrop-blur-md rounded-[2.5rem] border border-white/50 dark:border-white/5 overflow-hidden shadow-xl dark:shadow-2xl">
                 <Table
                   incidents={incidents}
                   onSelectIncident={setSelectedIncident}

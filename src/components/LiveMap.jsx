@@ -75,7 +75,7 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
   return (
     <div className="flex flex-col lg:flex-row h-full gap-6 overflow-hidden pb-4">
       {/* الخريطة - Light Mode */}
-      <div className="flex-[3] relative rounded-[3rem] border border-gray-200 overflow-hidden shadow-xl bg-white z-0">
+      <div className="flex-[3] relative rounded-[3rem] border border-white/50 dark:border-white/10 overflow-hidden shadow-xl bg-white/60 backdrop-blur-xl dark:bg-black/20 z-0">
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -108,11 +108,11 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
                       options={{ pixelOffset: new window.google.maps.Size(0, -40) }}
                       onCloseClick={() => onSelectIncident(null)}
                     >
-                      <div className="p-1 min-w-[120px] bg-white text-gray-900 rounded-xl">
+                      <div className="p-1 min-w-[120px] bg-white/80 backdrop-blur-lg text-slate-800 rounded-xl">
                         <p className="font-black text-red-600 uppercase text-[10px]">
                           {incident.type}
                         </p>
-                        <p className="text-[9px] text-gray-500 font-bold">
+                        <p className="text-[9px] text-slate-500 font-bold">
                           {incident.status}
                         </p>
                       </div>
@@ -130,9 +130,9 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
       </div>
 
       {/* القائمة الجانبية - بتصميم متناسق مع الهوم */}
-      <div className="flex-1 min-w-[400px] bg-white/80 dark:bg-black/5 backdrop-blur-3xl rounded-[3rem] border border-gray-200 dark:border-white/10 p-6 flex flex-col gap-4 shadow-2xl h-full border-l border-gray-200 dark:border-white/20">
+      <div className="flex-1 min-w-[400px] bg-white/60 dark:bg-black/5 backdrop-blur-3xl rounded-[3rem] border border-white/50 dark:border-white/10 p-6 flex flex-col gap-4 shadow-2xl h-full border-l border-white/50 dark:border-white/20">
         <div className="flex justify-between items-center mb-2">
-          <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400">
+          <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-500">
             Operations Feed
           </h2>
           <div className="flex items-center gap-2">
@@ -140,7 +140,7 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
             </span>
-            <span className="text-[10px] font-black text-gray-900 dark:text-white/60 uppercase">
+            <span className="text-[10px] font-black text-slate-800 dark:text-white/60 uppercase">
               Live
             </span>
           </div>
@@ -157,25 +157,25 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
                 className={`p-5 transition-all duration-500 cursor-pointer rounded-[2.2rem] border
                   ${
                     isActive
-                      ? "bg-gray-200 dark:bg-white/20 border-gray-300 dark:border-white/30 scale-[1.02] shadow-lg"
-                      : "bg-white dark:bg-white/5 border-gray-200 dark:border-white/5 hover:bg-gray-100 dark:hover:bg-white/10"
+                      ? "bg-white/60 dark:bg-white/20 border-white/80 dark:border-white/30 scale-[1.02] shadow-lg"
+                      : "bg-white/40 dark:bg-white/5 border-white/50 dark:border-white/5 hover:bg-white/60 dark:hover:bg-white/10"
                   }`}
               >
                 <div className="flex items-center gap-4">
                   <div
-                    className={`p-3 rounded-2xl bg-gray-100 dark:bg-black/20 ${style.color} border border-gray-200 dark:border-white/5`}
+                    className={`p-3 rounded-2xl bg-white/60 dark:bg-black/20 ${style.color} border border-white/50 dark:border-white/5`}
                   >
                     {style.icon}
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-xs font-black uppercase text-gray-900 dark:text-white tracking-tight">
+                    <h4 className="text-xs font-black uppercase text-slate-800 dark:text-white tracking-tight">
                       {incident.type}
                     </h4>
-                    <p className="text-[9px] text-gray-500 font-mono italic">
+                    <p className="text-[9px] text-slate-500 font-mono italic">
                       #{incident.id.toString().substring(0, 8)}
                     </p>
                   </div>
-                  <div className="text-right text-[8px] font-black text-gray-500 uppercase tracking-widest">
+                  <div className="text-right text-[8px] font-black text-slate-500 uppercase tracking-widest">
                     {new Date(incident.created_at).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit"
@@ -183,8 +183,8 @@ const LiveMap = ({ incidents = [], activeIncident, onSelectIncident }) => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-gray-200 dark:border-white/5 flex justify-between items-center">
-                  <div className="flex items-center gap-1 text-[10px] text-gray-400 font-bold">
+                <div className="mt-4 pt-3 border-t border-white/50 dark:border-white/5 flex justify-between items-center">
+                  <div className="flex items-center gap-1 text-[10px] text-slate-500 font-bold">
                     <MapPinIcon className="w-3 h-3 text-red-500" />
                     {incident.latitude.toFixed(3)},{" "}
                     {incident.longitude.toFixed(3)}

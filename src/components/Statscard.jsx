@@ -88,7 +88,7 @@ const Statscard = ({ incidents = [] }) => {
           {/* Header Info */}
           <div className="flex items-center gap-3 relative z-10">
             <div
-              className={`p-2 rounded-xl bg-white dark:bg-black/40 border border-gray-200 dark:border-white/10 ${card.activeBorder} transition-all duration-700`}
+              className={`p-2 rounded-xl bg-white/70 dark:bg-black/40 border border-white/50 dark:border-white/10 ${card.activeBorder} transition-all duration-700`}
             >
               <card.icon
                 className={`w-7 h-7 ${card.accent} ${card.textGlow} transition-all duration-700 group-hover:rotate-[360deg]`}
@@ -104,7 +104,7 @@ const Statscard = ({ incidents = [] }) => {
           {/* Value and Description */}
           <div className="flex flex-col gap-0.5 relative z-10">
             <h2
-              className={`text-3xl font-black tracking-tighter text-gray-900 dark:text-white transition-all duration-700 ${card.textGlow} group-hover:scale-105 origin-left`}
+              className={`text-3xl font-black tracking-tighter text-slate-800 dark:text-white transition-all duration-700 ${card.textGlow} group-hover:scale-105 origin-left`}
             >
               {card.value}
             </h2>

@@ -70,7 +70,7 @@ const Table = ({ incidents = [], onSelectIncident, activeId, onRefresh }) => {
   return (
     <div className="p-7 relative overflow-hidden w-full">
       {/* Table Header */}
-      <div className="grid grid-cols-7 px-6 mb-5 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 border-b border-gray-200 dark:border-white/5 pb-4">
+      <div className="grid grid-cols-7 px-6 mb-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 border-b border-white/50 dark:border-white/5 pb-4">
           <div className="col-span-1">ID & Type</div>
           <div className="text-center">Source</div>
           <div className="text-center">Location</div>
@@ -94,7 +94,7 @@ const Table = ({ incidents = [], onSelectIncident, activeId, onRefresh }) => {
                 className={`grid grid-cols-7 items-center p-4 rounded-2xl cursor-pointer transition-all duration-300 border ${
                   activeId === incident.id
                     ? "bg-red-600/15 border-red-500/50 shadow-[0_0_25px_rgba(220,38,38,0.15)] scale-[1.01]"
-                    : "bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/5 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20"
+                    : "bg-white/40 dark:bg-white/5 border-white/50 dark:border-white/5 hover:bg-white/60 dark:hover:bg-white/10 hover:border-white/80 dark:hover:border-white/20"
                 }`}
               >
                 {/* Type & ID */}
@@ -109,10 +109,10 @@ const Table = ({ incidents = [], onSelectIncident, activeId, onRefresh }) => {
                     {getIcon(incident.type)}
                   </div>
                   <div>
-                    <p className="text-[11px] text-gray-900 dark:text-white font-black leading-tight uppercase">
+                    <p className="text-[11px] text-slate-800 dark:text-white font-black leading-tight uppercase">
                       {incident.type}
                     </p>
-                    <p className="text-[9px] text-gray-500 font-bold tracking-tighter mt-0.5">
+                    <p className="text-[9px] text-slate-500 font-bold tracking-tighter mt-0.5">
                       #{incident.id?.toString().substring(0, 8)}
                     </p>
                   </div>
@@ -202,7 +202,7 @@ const Table = ({ incidents = [], onSelectIncident, activeId, onRefresh }) => {
                       e.stopPropagation();
                       setViewedIncident(incident);
                     }}
-                    className="p-2.5 bg-gray-100 dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 hover:bg-red-600 hover:border-red-500 transition-all text-gray-600 dark:text-white hover:text-white group"
+                    className="p-2.5 bg-white/40 dark:bg-white/5 rounded-xl border border-white/50 dark:border-white/10 hover:bg-red-600 hover:border-red-500 transition-all text-slate-600 dark:text-white hover:text-white group"
                     title="View Incident Image"
                   >
                     <EyeIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
@@ -216,14 +216,14 @@ const Table = ({ incidents = [], onSelectIncident, activeId, onRefresh }) => {
       {/* Image View Modal */}
       {viewedIncident && createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
-          <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-3xl flex flex-col w-full max-w-4xl max-h-[85vh] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+          <div className="bg-white/80 backdrop-blur-3xl dark:bg-[#0a0a0a] border border-white/50 dark:border-white/10 rounded-3xl flex flex-col w-full max-w-4xl max-h-[85vh] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
             
             {/* Header */}
-            <div className="flex-none flex items-center justify-between p-4 sm:px-6 border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-white/[0.02]">
+            <div className="flex-none flex items-center justify-between p-4 sm:px-6 border-b border-white/50 dark:border-white/5 bg-white/40 dark:bg-white/[0.02]">
               <div className="flex items-center gap-4">
                 <button 
                   onClick={() => setViewedIncident(null)}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 rounded-xl transition-all text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 group"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/40 dark:bg-white/5 hover:bg-white/60 dark:hover:bg-white/10 rounded-xl transition-all text-slate-800 dark:text-white border border-white/50 dark:border-white/10 group"
                 >
                   <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                   <span className="text-xs font-black tracking-widest uppercase">Back</span>
@@ -234,10 +234,10 @@ const Table = ({ incidents = [], onSelectIncident, activeId, onRefresh }) => {
                     <EyeIcon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-gray-900 dark:text-white font-black text-lg sm:text-xl tracking-widest uppercase leading-tight">
+                    <h3 className="text-slate-800 dark:text-white font-black text-lg sm:text-xl tracking-widest uppercase leading-tight">
                       Spectator View
                     </h3>
-                    <p className="text-gray-500 font-bold text-[10px] sm:text-xs uppercase tracking-widest">
+                    <p className="text-slate-500 font-bold text-[10px] sm:text-xs uppercase tracking-widest">
                       ID: #{viewedIncident.id?.toString().substring(0, 8)}
                     </p>
                   </div>
@@ -287,19 +287,19 @@ const Table = ({ incidents = [], onSelectIncident, activeId, onRefresh }) => {
             </div>
 
             {/* Footer Details */}
-            <div className="flex-none grid grid-cols-3 divide-x divide-gray-200 dark:divide-white/5 bg-gray-50 dark:bg-white/[0.02] border-t border-gray-200 dark:border-white/5">
+            <div className="flex-none grid grid-cols-3 divide-x divide-white/50 dark:divide-white/5 bg-white/40 dark:bg-white/[0.02] border-t border-white/50 dark:border-white/5">
               <div className="p-4 text-center">
-                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">Type</p>
-                <p className="text-xs sm:text-sm text-gray-900 dark:text-white font-black uppercase tracking-wider">{viewedIncident.type}</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Type</p>
+                <p className="text-xs sm:text-sm text-slate-800 dark:text-white font-black uppercase tracking-wider">{viewedIncident.type}</p>
               </div>
               <div className="p-4 text-center">
-                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">AI Confidence</p>
-                <p className="text-xs sm:text-sm text-gray-900 dark:text-white font-black uppercase tracking-wider">
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">AI Confidence</p>
+                <p className="text-xs sm:text-sm text-slate-800 dark:text-white font-black uppercase tracking-wider">
                   {viewedIncident.ai_confidence ? `${(viewedIncident.ai_confidence * 100).toFixed(0)}%` : "N/A"}
                 </p>
               </div>
               <div className="p-4 text-center flex flex-col items-center justify-center">
-                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">Status</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Status</p>
                 <span className={`text-[9px] sm:text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest ${
                   viewedIncident.status === "reported"
                     ? "bg-yellow-500/10 text-yellow-500 border border-yellow-500/20"

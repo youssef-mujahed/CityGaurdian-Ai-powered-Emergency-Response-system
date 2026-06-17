@@ -126,27 +126,27 @@ const Logs = () => {
   );
 
   return (
-    <div className="h-screen w-full flex flex-col text-gray-900 dark:text-white overflow-hidden bg-transparent">
+    <div className="h-screen w-full flex flex-col text-slate-800 dark:text-white overflow-hidden bg-transparent">
       <Navbar />
       <div className="flex flex-1 overflow-hidden pt-2 pr-4 gap-2">
         <div className="hidden md:block h-full pl-4">
-          <div className="h-full bg-white/80 dark:bg-black/20 backdrop-blur-xs border border-gray-200 dark:border-white/5 rounded-[2.5rem] overflow-hidden ml-5 shadow-xl dark:shadow-none">
+          <div className="h-full bg-white/40 dark:bg-black/20 backdrop-blur-xs border border-white/50 dark:border-white/5 rounded-[2.5rem] overflow-hidden ml-5 shadow-xl dark:shadow-none">
             <Sidebar />
           </div>
         </div>
 
         <main className="flex-1 overflow-y-auto custom-scroll px-8 pb-10">
           <div className="flex justify-between items-center mb-8 pt-6">
-            <div className="bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 pl-6 pr-12 py-4 rounded-2xl backdrop-blur-sm relative shadow-sm dark:shadow-none">
+            <div className="bg-white/60 dark:bg-white/[0.02] border border-white/50 dark:border-white/10 pl-6 pr-12 py-4 rounded-2xl backdrop-blur-sm relative shadow-sm dark:shadow-none">
               <div className="absolute top-0 left-0 w-1 h-full bg-red-600"></div>
-              <h1 className="text-[32px] font-black tracking-tighter uppercase text-gray-900 dark:text-white/90 leading-none">
+              <h1 className="text-[32px] font-black tracking-tighter uppercase text-slate-800 dark:text-white/90 leading-none">
                 Detection Logs
               </h1>
               <span className="text-[9px] text-red-500 font-black uppercase tracking-[0.3em] mt-2 block">
                 Live Sensor Data
               </span>
             </div>
-            <div className="bg-white/80 dark:bg-black/40 border border-gray-200 dark:border-white/10 px-6 py-3 rounded-2xl flex flex-col items-center shadow-xl border-l-2 border-l-red-600">
+            <div className="bg-white/40 dark:bg-black/40 border border-white/50 dark:border-white/10 px-6 py-3 rounded-2xl flex flex-col items-center shadow-xl border-l-2 border-l-red-600">
               <span className="text-2xl font-black text-red-500 animate-pulse">
                 {loading ? "..." : activeCount}
               </span>
@@ -157,20 +157,20 @@ const Logs = () => {
           </div>
 
           <div className="relative mb-8 group">
-            <MagnifyingGlassIcon className="w-6 h-6 text-gray-700 absolute left-6 top-1/2 -translate-y-1/2 group-focus-within:text-blue-500 transition-colors" />
+            <MagnifyingGlassIcon className="w-6 h-6 text-slate-600 absolute left-6 top-1/2 -translate-y-1/2 group-focus-within:text-blue-500 transition-colors" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Filter incoming signals..."
-              className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-[1.5rem] py-5 pl-16 text-gray-900 dark:text-white outline-none focus:border-blue-600/30 transition-all shadow-sm dark:shadow-none"
+              className="w-full bg-white/60 dark:bg-black/20 border border-white/50 dark:border-white/10 rounded-[1.5rem] py-5 pl-16 text-slate-800 dark:text-white outline-none focus:border-blue-600/30 transition-all shadow-sm dark:shadow-none"
             />
           </div>
 
-          <div className="bg-white/80 dark:bg-black/20 backdrop-blur-3xl border border-gray-200 dark:border-white/10 rounded-[2.5rem] overflow-hidden shadow-xl dark:shadow-2xl">
+          <div className="bg-white/40 dark:bg-black/20 backdrop-blur-3xl border border-white/50 dark:border-white/10 rounded-[2.5rem] overflow-hidden shadow-xl dark:shadow-2xl">
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-white/[0.02] text-[10px] text-gray-500 font-black uppercase tracking-[0.3em]">
+                <tr className="border-b border-white/50 dark:border-white/5 bg-white/60 dark:bg-white/[0.02] text-[10px] text-slate-500 font-black uppercase tracking-[0.3em]">
                   <th className="px-10 py-6 italic">Signal/Type</th>
                   <th className="px-8 py-6 text-center italic">Source</th>
                   <th className="px-8 py-6 text-center italic">Location</th>
@@ -204,7 +204,7 @@ const Logs = () => {
                     return (
                       <tr
                         key={log.id}
-                        className="hover:bg-white/[0.02] transition-all group"
+                        className="hover:bg-white/60 dark:hover:bg-white/[0.02] transition-all group"
                       >
                         <td className="px-10 py-8">
                           <div className="flex items-center gap-4">
@@ -217,7 +217,7 @@ const Logs = () => {
                               <span className="text-red-500 font-mono text-[10px] font-black block tracking-widest">
                                 #{log.id?.toString().slice(-4)}
                               </span>
-                              <span className="font-black text-lg uppercase text-gray-900 dark:text-white/90 tracking-tighter">
+                              <span className="font-black text-lg uppercase text-slate-800 dark:text-white/90 tracking-tighter">
                                 {log.type || "UNKNOWN"}
                               </span>
                             </div>
@@ -259,7 +259,7 @@ const Logs = () => {
                                 setSelectedLog(log);
                                 setShowModal(true);
                               }}
-                              className="bg-white/5 hover:bg-white/10 border border-white/10 px-6 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all"
+                              className="bg-white/60 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 border border-white/50 dark:border-white/10 px-6 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all"
                             >
                               Analyze
                             </button>
@@ -297,7 +297,7 @@ const Logs = () => {
 const ConfidenceBar = ({ value }) => (
   <div className="w-full max-w-[120px] inline-block">
     <div className="flex justify-between text-[10px] font-black uppercase mb-1.5 px-0.5 tracking-tighter">
-      <span className="text-gray-600 italic">AI Confidence</span>
+      <span className="text-slate-600 italic">AI Confidence</span>
       <span className={value >= 80 ? "text-green-500" : "text-yellow-500"}>
         {Math.round(value)}%
       </span>

@@ -42,7 +42,7 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
   }, [activeIncident, map]);
 
   return (
-    <div className="relative w-full h-[500px] bg-gray-100 dark:bg-black/20 z-0">
+    <div className="relative w-full h-[500px] bg-white/40 backdrop-blur-xl dark:bg-black/20 z-0">
       {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -75,14 +75,14 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
                       onCloseClick={() => setLocalActiveId(null)}
                       options={{ pixelOffset: new window.google.maps.Size(0, -40) }}
                     >
-                      <div className="p-2 min-w-[180px] bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-xl shadow-lg">
+                      <div className="p-2 min-w-[180px] bg-white/80 backdrop-blur-xl dark:bg-gray-900 text-slate-800 dark:text-white rounded-xl shadow-lg border border-white/50 dark:border-white/5">
                         <div className="flex items-center gap-2 mb-2 border-b border-gray-100 pb-2">
                           <div className="w-3 h-3 bg-red-600 rounded-full animate-ping"></div>
-                          <h3 className="font-black text-gray-900 dark:text-white uppercase text-[12px]">
+                          <h3 className="font-black text-slate-800 dark:text-white uppercase text-[12px]">
                             {incident.type}
                           </h3>
                         </div>
-                        <div className="space-y-1.5 text-[11px] font-bold text-gray-600 dark:text-gray-300">
+                        <div className="space-y-1.5 text-[11px] font-bold text-slate-600 dark:text-gray-300">
                           <p className="flex justify-between">
                             <span>STATUS:</span>
                             <span className="text-red-600 uppercase">
@@ -95,7 +95,7 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
                               {(incident.ai_confidence * 100).toFixed(0)}%
                             </span>
                           </p>
-                          <div className="mt-3 pt-2 border-t border-dashed border-gray-200 text-[9px] text-gray-400">
+                          <div className="mt-3 pt-2 border-t border-dashed border-white/50 text-[9px] text-slate-500">
                             GPS: {incident.latitude.toFixed(5)},{" "}
                             {incident.longitude.toFixed(5)}
                           </div>
@@ -114,10 +114,10 @@ const Mapsection = ({ incidents = [], activeIncident }) => {
         )}
 
         <div className="absolute bottom-6 right-8 z-[1000] pointer-events-none">
-          <div className="bg-white/90 dark:bg-black/80 backdrop-blur-md px-5 py-3 rounded-2xl border border-gray-200 dark:border-white/10 shadow-xl">
+          <div className="bg-white/80 dark:bg-black/80 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/50 dark:border-white/10 shadow-xl">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <p className="text-[10px] font-black text-gray-800 dark:text-white tracking-widest uppercase">
+              <p className="text-[10px] font-black text-slate-800 dark:text-white tracking-widest uppercase">
                 Satellite Link:{" "}
                 <span className="text-blue-600">Established</span>
               </p>
